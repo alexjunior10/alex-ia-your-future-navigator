@@ -13,6 +13,7 @@ import { Route as TestRouteImport } from './routes/test'
 import { Route as ResultadosRouteImport } from './routes/resultados'
 import { Route as CarrerasRouteImport } from './routes/carreras'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CarrerasSlugRouteImport } from './routes/carreras.$slug'
 
 const TestRoute = TestRouteImport.update({
   id: '/test',
@@ -34,37 +35,51 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CarrerasSlugRoute = CarrerasSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => CarrerasRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/carreras': typeof CarrerasRoute
+  '/carreras': typeof CarrerasRouteWithChildren
   '/resultados': typeof ResultadosRoute
   '/test': typeof TestRoute
+  '/carreras/$slug': typeof CarrerasSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/carreras': typeof CarrerasRoute
+  '/carreras': typeof CarrerasRouteWithChildren
   '/resultados': typeof ResultadosRoute
   '/test': typeof TestRoute
+  '/carreras/$slug': typeof CarrerasSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/carreras': typeof CarrerasRoute
+  '/carreras': typeof CarrerasRouteWithChildren
   '/resultados': typeof ResultadosRoute
   '/test': typeof TestRoute
+  '/carreras/$slug': typeof CarrerasSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/carreras' | '/resultados' | '/test'
+  fullPaths: '/' | '/carreras' | '/resultados' | '/test' | '/carreras/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/carreras' | '/resultados' | '/test'
-  id: '__root__' | '/' | '/carreras' | '/resultados' | '/test'
+  to: '/' | '/carreras' | '/resultados' | '/test' | '/carreras/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/carreras'
+    | '/resultados'
+    | '/test'
+    | '/carreras/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CarrerasRoute: typeof CarrerasRoute
+  CarrerasRoute: typeof CarrerasRouteWithChildren
   ResultadosRoute: typeof ResultadosRoute
   TestRoute: typeof TestRoute
 }
@@ -99,12 +114,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/carreras/$slug': {
+      id: '/carreras/$slug'
+      path: '/$slug'
+      fullPath: '/carreras/$slug'
+      preLoaderRoute: typeof CarrerasSlugRouteImport
+      parentRoute: typeof CarrerasRoute
+    }
   }
 }
 
+interface CarrerasRouteChildren {
+  CarrerasSlugRoute: typeof CarrerasSlugRoute
+}
+
+const CarrerasRouteChildren: CarrerasRouteChildren = {
+  CarrerasSlugRoute: CarrerasSlugRoute,
+}
+
+const CarrerasRouteWithChildren = CarrerasRoute._addFileChildren(
+  CarrerasRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CarrerasRoute: CarrerasRoute,
+  CarrerasRoute: CarrerasRouteWithChildren,
   ResultadosRoute: ResultadosRoute,
   TestRoute: TestRoute,
 }

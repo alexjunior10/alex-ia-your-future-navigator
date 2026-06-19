@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Briefcase, Clock, TrendingUp, GraduationCap, DollarSign } from "lucide-react";
-import { careers } from "../lib/mock-data";
+import { careers, type Career } from "../lib/mock-data";
 
 export const Route = createFileRoute("/carreras/$slug")({
   component: CareerDetail,
@@ -10,7 +10,7 @@ export const Route = createFileRoute("/carreras/$slug")({
       <Link to="/carreras" className="mt-4 inline-block text-primary hover:underline">← Volver a carreras</Link>
     </div>
   ),
-  loader: ({ params }) => {
+  loader: ({ params }): Career => {
     const c = careers.find((x) => x.slug === params.slug);
     if (!c) throw notFound();
     return c;
