@@ -23,7 +23,7 @@ export const Route = createFileRoute("/carreras/$slug")({
 });
 
 function CareerDetail() {
-  const c = Route.useLoaderData();
+  const c = Route.useLoaderData() as Career;
   return (
     <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
       <Link to="/carreras" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
