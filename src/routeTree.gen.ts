@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestRouteImport } from './routes/test'
 import { Route as ResultadosRouteImport } from './routes/resultados'
+import { Route as PadresRouteImport } from './routes/padres'
 import { Route as CarrerasRouteImport } from './routes/carreras'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CarrerasSlugRouteImport } from './routes/carreras.$slug'
@@ -23,6 +24,11 @@ const TestRoute = TestRouteImport.update({
 const ResultadosRoute = ResultadosRouteImport.update({
   id: '/resultados',
   path: '/resultados',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PadresRoute = PadresRouteImport.update({
+  id: '/padres',
+  path: '/padres',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CarrerasRoute = CarrerasRouteImport.update({
@@ -44,6 +50,7 @@ const CarrerasSlugRoute = CarrerasSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/carreras': typeof CarrerasRouteWithChildren
+  '/padres': typeof PadresRoute
   '/resultados': typeof ResultadosRoute
   '/test': typeof TestRoute
   '/carreras/$slug': typeof CarrerasSlugRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/carreras': typeof CarrerasRouteWithChildren
+  '/padres': typeof PadresRoute
   '/resultados': typeof ResultadosRoute
   '/test': typeof TestRoute
   '/carreras/$slug': typeof CarrerasSlugRoute
@@ -59,19 +67,33 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/carreras': typeof CarrerasRouteWithChildren
+  '/padres': typeof PadresRoute
   '/resultados': typeof ResultadosRoute
   '/test': typeof TestRoute
   '/carreras/$slug': typeof CarrerasSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/carreras' | '/resultados' | '/test' | '/carreras/$slug'
+  fullPaths:
+    | '/'
+    | '/carreras'
+    | '/padres'
+    | '/resultados'
+    | '/test'
+    | '/carreras/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/carreras' | '/resultados' | '/test' | '/carreras/$slug'
+  to:
+    | '/'
+    | '/carreras'
+    | '/padres'
+    | '/resultados'
+    | '/test'
+    | '/carreras/$slug'
   id:
     | '__root__'
     | '/'
     | '/carreras'
+    | '/padres'
     | '/resultados'
     | '/test'
     | '/carreras/$slug'
@@ -80,6 +102,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CarrerasRoute: typeof CarrerasRouteWithChildren
+  PadresRoute: typeof PadresRoute
   ResultadosRoute: typeof ResultadosRoute
   TestRoute: typeof TestRoute
 }
@@ -98,6 +121,13 @@ declare module '@tanstack/react-router' {
       path: '/resultados'
       fullPath: '/resultados'
       preLoaderRoute: typeof ResultadosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/padres': {
+      id: '/padres'
+      path: '/padres'
+      fullPath: '/padres'
+      preLoaderRoute: typeof PadresRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/carreras': {
@@ -139,6 +169,7 @@ const CarrerasRouteWithChildren = CarrerasRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CarrerasRoute: CarrerasRouteWithChildren,
+  PadresRoute: PadresRoute,
   ResultadosRoute: ResultadosRoute,
   TestRoute: TestRoute,
 }
