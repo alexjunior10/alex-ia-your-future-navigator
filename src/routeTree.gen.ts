@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestRouteImport } from './routes/test'
 import { Route as ResultadosRouteImport } from './routes/resultados'
+import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as PadresRouteImport } from './routes/padres'
 import { Route as ColegiosRouteImport } from './routes/colegios'
 import { Route as CoachRouteImport } from './routes/coach'
@@ -26,6 +27,11 @@ const TestRoute = TestRouteImport.update({
 const ResultadosRoute = ResultadosRouteImport.update({
   id: '/resultados',
   path: '/resultados',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacidadRoute = PrivacidadRouteImport.update({
+  id: '/privacidad',
+  path: '/privacidad',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PadresRoute = PadresRouteImport.update({
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/coach': typeof CoachRoute
   '/colegios': typeof ColegiosRoute
   '/padres': typeof PadresRoute
+  '/privacidad': typeof PrivacidadRoute
   '/resultados': typeof ResultadosRoute
   '/test': typeof TestRoute
   '/carreras/$slug': typeof CarrerasSlugRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/coach': typeof CoachRoute
   '/colegios': typeof ColegiosRoute
   '/padres': typeof PadresRoute
+  '/privacidad': typeof PrivacidadRoute
   '/resultados': typeof ResultadosRoute
   '/test': typeof TestRoute
   '/carreras/$slug': typeof CarrerasSlugRoute
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/coach': typeof CoachRoute
   '/colegios': typeof ColegiosRoute
   '/padres': typeof PadresRoute
+  '/privacidad': typeof PrivacidadRoute
   '/resultados': typeof ResultadosRoute
   '/test': typeof TestRoute
   '/carreras/$slug': typeof CarrerasSlugRoute
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/coach'
     | '/colegios'
     | '/padres'
+    | '/privacidad'
     | '/resultados'
     | '/test'
     | '/carreras/$slug'
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/coach'
     | '/colegios'
     | '/padres'
+    | '/privacidad'
     | '/resultados'
     | '/test'
     | '/carreras/$slug'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/coach'
     | '/colegios'
     | '/padres'
+    | '/privacidad'
     | '/resultados'
     | '/test'
     | '/carreras/$slug'
@@ -129,6 +141,7 @@ export interface RootRouteChildren {
   CoachRoute: typeof CoachRoute
   ColegiosRoute: typeof ColegiosRoute
   PadresRoute: typeof PadresRoute
+  PrivacidadRoute: typeof PrivacidadRoute
   ResultadosRoute: typeof ResultadosRoute
   TestRoute: typeof TestRoute
 }
@@ -147,6 +160,13 @@ declare module '@tanstack/react-router' {
       path: '/resultados'
       fullPath: '/resultados'
       preLoaderRoute: typeof ResultadosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacidad': {
+      id: '/privacidad'
+      path: '/privacidad'
+      fullPath: '/privacidad'
+      preLoaderRoute: typeof PrivacidadRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/padres': {
@@ -212,6 +232,7 @@ const rootRouteChildren: RootRouteChildren = {
   CoachRoute: CoachRoute,
   ColegiosRoute: ColegiosRoute,
   PadresRoute: PadresRoute,
+  PrivacidadRoute: PrivacidadRoute,
   ResultadosRoute: ResultadosRoute,
   TestRoute: TestRoute,
 }
