@@ -25,17 +25,17 @@ export function SiteFooter() {
           <div>
             <h4 className="text-sm font-semibold text-foreground">Producto</h4>
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-              <li><Link to="/test" className="hover:text-foreground">Test Vocacional</Link></li>
-              <li><Link to="/carreras" className="hover:text-foreground">Carreras</Link></li>
-              <li><Link to="/coach" className="hover:text-foreground">Alex Coach</Link></li>
+              <li><Link to="/test" className="hover:text-foreground transition-colors">Test Vocacional</Link></li>
+              <li><Link to="/carreras" className="hover:text-foreground transition-colors">Carreras</Link></li>
+              <li><Link to="/coach" className="hover:text-foreground transition-colors">Coach IA</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="text-sm font-semibold text-foreground">Compañía</h4>
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-              <li><Link to="/padres" className="hover:text-foreground">Para Padres</Link></li>
-              <li><Link to="/colegios" className="hover:text-foreground">Para Colegios</Link></li>
-              <li><Link to="/privacidad" className="hover:text-foreground">Política de Privacidad</Link></li>
+              <li><Link to="/padres" className="hover:text-foreground transition-colors">Para Padres</Link></li>
+              <li><Link to="/colegios" className="hover:text-foreground transition-colors">Para Colegios</Link></li>
+              <li><Link to="/privacidad" className="hover:text-foreground transition-colors">Política de Privacidad</Link></li>
             </ul>
           </div>
         </div>
