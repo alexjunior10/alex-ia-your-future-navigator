@@ -6,6 +6,8 @@ interface AuthContextType {
   role: Role;
   login: (role: Role) => void;
   logout: () => void;
+  showAuthModal: boolean;
+  setShowAuthModal: (show: boolean) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -13,6 +15,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [role, setRole] = useState<Role>(null);
   const [mounted, setMounted] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("alex_ia_role") as Role;
@@ -33,7 +36,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   if (!mounted) return null; // Avoid hydration mismatch
 
   return (
-    <AuthContext.Provider value={{ role, login, logout }}>
+    <AuthContext.Provider value={{ role, login, logout, showAuthModal, setShowAuthModal }}>
       {children}
     </AuthContext.Provider>
   );

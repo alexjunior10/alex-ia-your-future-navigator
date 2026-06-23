@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Sparkles, LogOut, UserCircle, X, CheckCircle2 } from "lucide-react";
 import { useAuth } from "../hooks/use-auth";
-import { useState } from "react";
 
 const allItems = [
   { to: "/test", label: "Test Vocacional", isProtected: true },
@@ -13,9 +12,8 @@ const allItems = [
 ];
 
 export function SiteHeader() {
-  const { role, logout } = useAuth();
+  const { role, logout, showAuthModal, setShowAuthModal } = useAuth();
   const navigate = useNavigate();
-  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const handleLinkClick = (e: React.MouseEvent, item: typeof allItems[0]) => {
     if (item.isProtected && !role) {

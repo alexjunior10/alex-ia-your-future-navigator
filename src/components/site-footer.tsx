@@ -1,7 +1,16 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram, Linkedin, Youtube, Sparkles, ArrowRight } from "lucide-react";
+import { useAuth } from "../hooks/use-auth";
 
 export function SiteFooter() {
+  const { role, setShowAuthModal } = useAuth();
+
+  const handleLinkClick = (e: React.MouseEvent, isProtected: boolean) => {
+    if (isProtected && !role) {
+      e.preventDefault();
+      setShowAuthModal(true);
+    }
+  };
   return (
     <footer className="mt-24 border-t border-border/60 bg-background relative overflow-hidden">
       {/* Motivador - Top Banner */}
@@ -13,7 +22,7 @@ export function SiteFooter() {
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             Miles de estudiantes ya comenzaron a explorar su futuro con Alex IA.
           </p>
-          <Link to="/test" className="inline-flex justify-center items-center gap-2 rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground shadow-lg transition-transform hover:scale-105">
+          <Link to="/test" onClick={(e) => handleLinkClick(e, true)} className="inline-flex justify-center items-center gap-2 rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground shadow-lg transition-transform hover:scale-105">
             Realizar Test <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -40,18 +49,18 @@ export function SiteFooter() {
           <div>
             <h4 className="text-sm font-bold text-foreground tracking-wider uppercase mb-6">Producto</h4>
             <ul className="space-y-4 text-sm font-medium text-muted-foreground">
-              <li><Link to="/test" className="hover:text-primary transition-colors">Test Vocacional</Link></li>
-              <li><Link to="/carreras" className="hover:text-primary transition-colors">Carreras</Link></li>
-              <li><Link to="/coach" className="hover:text-primary transition-colors">Coach IA</Link></li>
-              <li><Link to="/examen" className="hover:text-primary transition-colors">Simulador</Link></li>
+              <li><Link to="/test" onClick={(e) => handleLinkClick(e, true)} className="hover:text-primary transition-colors">Test Vocacional</Link></li>
+              <li><Link to="/carreras" onClick={(e) => handleLinkClick(e, false)} className="hover:text-primary transition-colors">Carreras</Link></li>
+              <li><Link to="/coach" onClick={(e) => handleLinkClick(e, false)} className="hover:text-primary transition-colors">Coach IA</Link></li>
+              <li><Link to="/examen" onClick={(e) => handleLinkClick(e, true)} className="hover:text-primary transition-colors">Simulador</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="text-sm font-bold text-foreground tracking-wider uppercase mb-6">Compañía</h4>
             <ul className="space-y-4 text-sm font-medium text-muted-foreground">
               <li><Link to="/" className="hover:text-primary transition-colors">Nosotros</Link></li>
-              <li><Link to="/padres" className="hover:text-primary transition-colors">Para Padres</Link></li>
-              <li><Link to="/colegios" className="hover:text-primary transition-colors">Para Colegios</Link></li>
+              <li><Link to="/padres" onClick={(e) => handleLinkClick(e, true)} className="hover:text-primary transition-colors">Para Padres</Link></li>
+              <li><Link to="/colegios" onClick={(e) => handleLinkClick(e, true)} className="hover:text-primary transition-colors">Para Colegios</Link></li>
               <li><Link to="/" className="hover:text-primary transition-colors">Privacidad</Link></li>
             </ul>
           </div>
