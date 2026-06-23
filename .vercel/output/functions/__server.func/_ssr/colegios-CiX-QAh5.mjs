@@ -1,5 +1,5 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-import { A as BookOpen, S as CircleCheck, n as Users, w as ChartColumn } from "../_libs/lucide-react.mjs";
+import { D as CircleCheck, F as BookOpen, k as ChartColumn, r as Users } from "../_libs/lucide-react.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/colegios-CiX-QAh5.js
 var import_jsx_runtime = require_jsx_runtime();
 function ColegiosPage() {

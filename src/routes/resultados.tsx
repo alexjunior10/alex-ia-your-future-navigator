@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, ArrowRight, Sparkles, BrainCircuit, Target, AlertTriangle, BookOpen, GraduationCap } from "lucide-react";
+import { Check, ArrowRight, Sparkles, BrainCircuit, Target, AlertTriangle, BookOpen, GraduationCap, X, MessageCircle } from "lucide-react";
+import { useState, useEffect } from "react";
 import { careers, mockAdnProfile } from "../lib/mock-data";
 
 export const Route = createFileRoute("/resultados")({
@@ -43,6 +44,15 @@ function Radar({ data }: { data: { name: string; value: number }[] }) {
 function ResultsPage() {
   const topCareers = careers.slice(0, 5); // Tomamos el top 5
   const top1 = topCareers[0];
+  const [showCoachPopup, setShowCoachPopup] = useState(false);
+
+  useEffect(() => {
+    // Mostrar popup del coach después de 3 segundos
+    const timer = setTimeout(() => {
+      setShowCoachPopup(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
@@ -207,6 +217,29 @@ function ResultsPage() {
       <div className="mt-12 rounded-2xl bg-muted/60 p-4 text-xs leading-relaxed text-muted-foreground text-center">
         Alex IA es una herramienta de orientación y autoconocimiento. No constituye un diagnóstico psicológico ni reemplaza la evaluación de un psicólogo u orientador vocacional certificado. Los resultados son estimaciones referenciales basadas en tus respuestas, no mediciones exactas de habilidad o éxito futuro.
       </div>
+
+      {/* Popup Coach IA */}
+      {showCoachPopup && (
+        <div className="fixed bottom-6 right-6 z-50 animate-in slide-in-from-bottom-10 fade-in duration-500">
+          <div className="relative rounded-3xl border border-border bg-card p-6 shadow-2xl max-w-[300px]">
+            <button onClick={() => setShowCoachPopup(false)} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
+              <X className="h-4 w-4" />
+            </button>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="grid h-10 w-10 place-items-center rounded-full bg-primary/10 text-primary">
+                <Sparkles className="h-5 w-5" />
+              </div>
+              <h4 className="font-bold">Alex IA Coach</h4>
+            </div>
+            <p className="text-sm text-muted-foreground mb-5">
+              👋 Vi tu resultado, ¿quieres que conversemos sobre qué significa para ti este ADN?
+            </p>
+            <Link to="/coach" className="flex w-full justify-center items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground transition-transform hover:scale-105">
+              <MessageCircle className="h-4 w-4" /> Conversar ahora
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,6 +1,7 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useAuth, type Role } from "../hooks/use-auth";
-import { GraduationCap, Users, Building2, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { GraduationCap, Users, LogIn, UserPlus } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "Iniciar Sesión — Alex IA" }] }),
@@ -10,8 +11,13 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState<"student" | "parent">("student");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleLogin = (role: Role) => {
+  const handleLogin = (e: React.FormEvent, role: Role) => {
+    e.preventDefault();
+    // Simular un login (cualquier credencial es válida)
     login(role);
     if (role === "student") navigate({ to: "/test" });
     if (role === "parent") navigate({ to: "/padres" });
@@ -19,58 +25,89 @@ function LoginPage() {
   };
 
   return (
-    <div className="mx-auto flex min-h-[80vh] max-w-4xl flex-col items-center justify-center px-4 py-12 sm:px-6">
-      <div className="text-center">
-        <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">¿Quién eres?</h1>
-        <p className="mt-3 text-muted-foreground">Selecciona tu perfil para ingresar a la plataforma.</p>
+    <div className="mx-auto flex min-h-[80vh] max-w-md flex-col items-center justify-center px-4 py-12 sm:px-6">
+      <div className="w-full rounded-3xl border border-border bg-card p-8 shadow-xl">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-extrabold tracking-tight">Iniciar Sesión</h1>
+          <p className="mt-2 text-sm text-muted-foreground">Ingresa a tu cuenta para continuar.</p>
+        </div>
+
+        {/* Tabs */}
+        <div className="flex rounded-xl bg-muted p-1 mb-8">
+          <button
+            onClick={() => setActiveTab("student")}
+            className={`flex-1 flex items-center justify-center gap-2 rounded-lg py-2 text-sm font-semibold transition-all ${
+              activeTab === "student" ? "bg-background text-foreground shadow" : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <GraduationCap className="h-4 w-4" /> Estudiante
+          </button>
+          <button
+            onClick={() => setActiveTab("parent")}
+            className={`flex-1 flex items-center justify-center gap-2 rounded-lg py-2 text-sm font-semibold transition-all ${
+              activeTab === "parent" ? "bg-background text-foreground shadow" : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            <Users className="h-4 w-4" /> Padre/Madre
+          </button>
+        </div>
+
+        {/* Formulario Simulado */}
+        <form onSubmit={(e) => handleLogin(e, activeTab)} className="space-y-4">
+          <div>
+            <label className="mb-2 block text-sm font-medium text-foreground">
+              {activeTab === "student" ? "Usuario o Correo" : "Correo Electrónico"}
+            </label>
+            <input
+              type="text"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder={activeTab === "student" ? "ej. alex123" : "ej. padre@correo.com"}
+              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+            />
+          </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium text-foreground">Contraseña</label>
+            <input
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
+              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+            />
+          </div>
+
+          <div className="pt-4 flex flex-col gap-3">
+            <button
+              type="submit"
+              className="w-full flex justify-center items-center gap-2 rounded-xl bg-primary px-4 py-3 font-bold text-primary-foreground shadow-md transition-transform hover:scale-[1.02]"
+            >
+              <LogIn className="h-5 w-5" /> Iniciar Sesión
+            </button>
+
+            <Link
+              to={activeTab === "student" ? "/registro/estudiante" : "/registro/padre"}
+              className="w-full flex justify-center items-center gap-2 rounded-xl border border-border bg-background px-4 py-3 font-semibold text-foreground transition-colors hover:bg-muted"
+            >
+              <UserPlus className="h-5 w-5" /> Crear cuenta
+            </Link>
+          </div>
+        </form>
       </div>
 
-      <div className="mt-10 grid w-full gap-6 sm:grid-cols-3">
+      <div className="mt-8 text-center">
         <button
-          onClick={() => handleLogin("student")}
-          className="group flex flex-col items-center rounded-3xl border border-border bg-card p-8 text-center shadow-sm transition-all hover:-translate-y-1 hover:border-primary hover:shadow-xl"
+          onClick={(e) => handleLogin(e, "school")}
+          className="text-xs font-medium text-muted-foreground hover:text-foreground underline decoration-muted-foreground/30 underline-offset-4"
         >
-          <div className="grid h-16 w-16 place-items-center rounded-2xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-            <GraduationCap className="h-8 w-8" />
-          </div>
-          <h3 className="mt-5 text-xl font-bold">Soy Estudiante</h3>
-          <p className="mt-2 text-sm text-muted-foreground">Quiero descubrir mi carrera ideal y prepararme para el futuro.</p>
-          <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-primary opacity-0 transition-opacity group-hover:opacity-100">
-            Ingresar <ArrowRight className="h-4 w-4" />
-          </div>
-        </button>
-
-        <button
-          onClick={() => handleLogin("parent")}
-          className="group flex flex-col items-center rounded-3xl border border-border bg-card p-8 text-center shadow-sm transition-all hover:-translate-y-1 hover:border-secondary hover:shadow-xl"
-        >
-          <div className="grid h-16 w-16 place-items-center rounded-2xl bg-secondary/10 text-secondary transition-colors group-hover:bg-secondary group-hover:text-secondary-foreground">
-            <Users className="h-8 w-8" />
-          </div>
-          <h3 className="mt-5 text-xl font-bold">Soy Padre/Madre</h3>
-          <p className="mt-2 text-sm text-muted-foreground">Quiero acompañar y entender el perfil vocacional de mi hijo/a.</p>
-          <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-secondary opacity-0 transition-opacity group-hover:opacity-100">
-            Ingresar <ArrowRight className="h-4 w-4" />
-          </div>
-        </button>
-
-        <button
-          onClick={() => handleLogin("school")}
-          className="group flex flex-col items-center rounded-3xl border border-border bg-card p-8 text-center shadow-sm transition-all hover:-translate-y-1 hover:border-accent hover:shadow-xl"
-        >
-          <div className="grid h-16 w-16 place-items-center rounded-2xl bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
-            <Building2 className="h-8 w-8" />
-          </div>
-          <h3 className="mt-5 text-xl font-bold">Soy Colegio</h3>
-          <p className="mt-2 text-sm text-muted-foreground">Quiero ver el progreso vocacional agregado de mis estudiantes.</p>
-          <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-accent opacity-0 transition-opacity group-hover:opacity-100">
-            Ingresar <ArrowRight className="h-4 w-4" />
-          </div>
+          Acceso exclusivo para Colegios
         </button>
       </div>
       
-      <p className="mt-12 text-sm text-muted-foreground">
-        * Para fines de este prototipo, el login es simulado y no requiere contraseña.
+      <p className="mt-6 text-xs text-muted-foreground/60 text-center max-w-sm">
+        * Para fines del prototipo, ingresa cualquier usuario y contraseña. No se validan credenciales reales.
       </p>
     </div>
   );

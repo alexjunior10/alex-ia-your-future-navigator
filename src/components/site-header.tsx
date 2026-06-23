@@ -22,8 +22,9 @@ export function SiteHeader() {
 
   let navItems: readonly { to: string; label: string }[] = [];
   if (role === "student") navItems = studentItems;
-  if (role === "parent") navItems = parentItems;
-  if (role === "school") navItems = schoolItems;
+  else if (role === "parent") navItems = parentItems;
+  else if (role === "school") navItems = schoolItems;
+  else navItems = [{ to: "/coach", label: "Coach IA (Gratis)" }];
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
@@ -37,20 +38,18 @@ export function SiteHeader() {
           </span>
         </Link>
         
-        {role && (
-          <nav className="hidden items-center gap-1 md:flex">
-            {navItems.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-all hover:bg-muted hover:text-foreground"
-                activeProps={{ className: "rounded-full px-4 py-2 text-sm bg-muted text-foreground font-semibold shadow-sm" }}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        )}
+        <nav className="hidden items-center gap-1 md:flex">
+          {navItems.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-all hover:bg-muted hover:text-foreground"
+              activeProps={{ className: "rounded-full px-4 py-2 text-sm bg-muted text-foreground font-semibold shadow-sm" }}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
         <div className="flex items-center gap-4">
           {!role ? (

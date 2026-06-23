@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { i as testDimensions } from "./mock-data-cwiuQowp.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { g as useNavigate } from "../_libs/@tanstack/react-router+[...].mjs";
-import { M as ArrowLeft, S as CircleCheck, s as Sparkles } from "../_libs/lucide-react.mjs";
+import { D as CircleCheck, L as ArrowLeft, l as Sparkles } from "../_libs/lucide-react.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/test-CTPyxu-j.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();

@@ -26,9 +26,9 @@ function Index() {
   return (
     <div className="overflow-hidden">
       {/* Hero */}
-      <section className="relative">
+      <section className="relative pb-16">
         <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/10 via-background to-secondary/10" />
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-24">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 sm:px-6 md:grid-cols-2 md:py-16">
           <div className="animate-fade-in">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-primary shadow-sm">
               <Sparkles className="h-3.5 w-3.5" /> El Spotify de la orientación vocacional
@@ -57,7 +57,7 @@ function Index() {
       </section>
 
       {/* Bullets de Impacto */}
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 relative z-10 -mt-12">
         <div className="grid gap-6 md:grid-cols-3">
           <div className="rounded-3xl border border-border bg-accent p-8 text-accent-foreground shadow-md transition-transform hover:-translate-y-1">
             <div className="text-5xl font-black mb-4">60%</div>

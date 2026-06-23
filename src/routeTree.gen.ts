@@ -19,6 +19,8 @@ import { Route as ColegiosRouteImport } from './routes/colegios'
 import { Route as CoachRouteImport } from './routes/coach'
 import { Route as CarrerasRouteImport } from './routes/carreras'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RegistroPadreRouteImport } from './routes/registro.padre'
+import { Route as RegistroEstudianteRouteImport } from './routes/registro.estudiante'
 import { Route as CarrerasSlugRouteImport } from './routes/carreras.$slug'
 
 const TestRoute = TestRouteImport.update({
@@ -71,6 +73,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RegistroPadreRoute = RegistroPadreRouteImport.update({
+  id: '/registro/padre',
+  path: '/registro/padre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegistroEstudianteRoute = RegistroEstudianteRouteImport.update({
+  id: '/registro/estudiante',
+  path: '/registro/estudiante',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CarrerasSlugRoute = CarrerasSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -89,6 +101,8 @@ export interface FileRoutesByFullPath {
   '/resultados': typeof ResultadosRoute
   '/test': typeof TestRoute
   '/carreras/$slug': typeof CarrerasSlugRoute
+  '/registro/estudiante': typeof RegistroEstudianteRoute
+  '/registro/padre': typeof RegistroPadreRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -102,6 +116,8 @@ export interface FileRoutesByTo {
   '/resultados': typeof ResultadosRoute
   '/test': typeof TestRoute
   '/carreras/$slug': typeof CarrerasSlugRoute
+  '/registro/estudiante': typeof RegistroEstudianteRoute
+  '/registro/padre': typeof RegistroPadreRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -116,6 +132,8 @@ export interface FileRoutesById {
   '/resultados': typeof ResultadosRoute
   '/test': typeof TestRoute
   '/carreras/$slug': typeof CarrerasSlugRoute
+  '/registro/estudiante': typeof RegistroEstudianteRoute
+  '/registro/padre': typeof RegistroPadreRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -131,6 +149,8 @@ export interface FileRouteTypes {
     | '/resultados'
     | '/test'
     | '/carreras/$slug'
+    | '/registro/estudiante'
+    | '/registro/padre'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -144,6 +164,8 @@ export interface FileRouteTypes {
     | '/resultados'
     | '/test'
     | '/carreras/$slug'
+    | '/registro/estudiante'
+    | '/registro/padre'
   id:
     | '__root__'
     | '/'
@@ -157,6 +179,8 @@ export interface FileRouteTypes {
     | '/resultados'
     | '/test'
     | '/carreras/$slug'
+    | '/registro/estudiante'
+    | '/registro/padre'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -170,6 +194,8 @@ export interface RootRouteChildren {
   PrivacidadRoute: typeof PrivacidadRoute
   ResultadosRoute: typeof ResultadosRoute
   TestRoute: typeof TestRoute
+  RegistroEstudianteRoute: typeof RegistroEstudianteRoute
+  RegistroPadreRoute: typeof RegistroPadreRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -244,6 +270,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/registro/padre': {
+      id: '/registro/padre'
+      path: '/registro/padre'
+      fullPath: '/registro/padre'
+      preLoaderRoute: typeof RegistroPadreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/registro/estudiante': {
+      id: '/registro/estudiante'
+      path: '/registro/estudiante'
+      fullPath: '/registro/estudiante'
+      preLoaderRoute: typeof RegistroEstudianteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/carreras/$slug': {
       id: '/carreras/$slug'
       path: '/$slug'
@@ -277,6 +317,8 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacidadRoute: PrivacidadRoute,
   ResultadosRoute: ResultadosRoute,
   TestRoute: TestRoute,
+  RegistroEstudianteRoute: RegistroEstudianteRoute,
+  RegistroPadreRoute: RegistroPadreRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

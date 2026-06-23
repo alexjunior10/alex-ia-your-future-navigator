@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { admissionExams, careers } from "../lib/mock-data";
-import { CheckCircle2, XCircle, Trophy, Target, HeartHandshake } from "lucide-react";
+import { CheckCircle2, XCircle, Trophy, Target, HeartHandshake, BookOpen, Building2, BrainCircuit, Activity } from "lucide-react";
 
 export const Route = createFileRoute("/examen")({
   head: () => ({ meta: [{ title: "Examen Tipo Admisión — Alex IA" }] }),
@@ -14,8 +14,10 @@ function ExamenPage() {
   const [answers, setAnswers] = useState<number[]>([]);
   const [finished, setFinished] = useState(false);
 
-  // Usamos el top 1 como la carrera para el simulacro
-  const targetCareer = careers[0];
+  const [selectedCareer, setSelectedCareer] = useState(careers[0].slug);
+  const [selectedUni, setSelectedUni] = useState(careers[0].universities[0]);
+
+  const targetCareer = careers.find(c => c.slug === selectedCareer) || careers[0];
   const examBank = admissionExams[targetCareer.slug] || admissionExams["ingenieria"];
 
   const currentQ = examBank[qIdx];
@@ -33,19 +35,87 @@ function ExamenPage() {
 
   if (!started) {
     return (
-      <div className="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-center justify-center px-4 text-center">
-        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl mb-6">
-          Simulador de Admisión
-        </h1>
-        <p className="text-lg text-muted-foreground mb-8">
-          Te presentaremos un mini-examen tipo admisión enfocado en el área de <strong>{targetCareer.name}</strong>. Mide tus conocimientos actuales de manera segura y confidencial.
-        </p>
-        <button
-          onClick={() => setStarted(true)}
-          className="rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground shadow-lg transition-transform hover:scale-105"
-        >
-          Iniciar Simulacro
-        </button>
+      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl mb-4">
+            Simulador de Admisión
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Mide tus conocimientos actuales de manera segura y confidencial. No es un examen real, es un diagnóstico para ayudarte a mejorar.
+          </p>
+        </div>
+
+        {/* Anti-anxiety stats */}
+        <div className="grid sm:grid-cols-3 gap-4 mb-16">
+          <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+            <Activity className="h-6 w-6 text-primary mb-3" />
+            <h3 className="font-bold mb-2">Entorno Seguro</h3>
+            <p className="text-sm text-muted-foreground">Más de 5,000 estudiantes practican aquí sin miedo a equivocarse.</p>
+          </div>
+          <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+            <Target className="h-6 w-6 text-secondary mb-3" />
+            <h3 className="font-bold mb-2">Simulación Realista</h3>
+            <p className="text-sm text-muted-foreground">Preguntas basadas en exámenes pasados de las top 10 universidades del Perú.</p>
+          </div>
+          <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+            <HeartHandshake className="h-6 w-6 text-accent mb-3" />
+            <h3 className="font-bold mb-2">Cero Presión</h3>
+            <p className="text-sm text-muted-foreground">Conocer tu nivel hoy es el primer paso para diseñar tu plan de estudio mañana.</p>
+          </div>
+        </div>
+
+        {/* Step-by-step visual */}
+        <div className="rounded-3xl bg-muted/30 p-8 mb-16">
+          <h3 className="text-center font-bold text-lg mb-8">¿Cómo funciona?</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div className="flex flex-col items-center">
+              <div className="grid h-12 w-12 place-items-center rounded-full bg-primary/20 text-primary mb-3 font-bold">1</div>
+              <p className="text-sm font-medium">Eliges Carrera</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="grid h-12 w-12 place-items-center rounded-full bg-primary/20 text-primary mb-3 font-bold">2</div>
+              <p className="text-sm font-medium">Eliges Universidad</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="grid h-12 w-12 place-items-center rounded-full bg-primary/20 text-primary mb-3 font-bold">3</div>
+              <p className="text-sm font-medium">15 Preguntas</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="grid h-12 w-12 place-items-center rounded-full bg-primary/20 text-primary mb-3 font-bold">4</div>
+              <p className="text-sm font-medium">Recibes Feedback</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Configuration Form */}
+        <div className="max-w-xl mx-auto rounded-3xl border border-border bg-card p-8 shadow-md">
+          <h3 className="text-2xl font-bold text-center mb-6">Configura tu simulacro</h3>
+          
+          <div className="space-y-5 mb-8">
+            <div>
+              <label className="mb-2 block text-sm font-medium flex items-center gap-2"><BookOpen className="h-4 w-4" /> Carrera a postular</label>
+              <select value={selectedCareer} onChange={e => { setSelectedCareer(e.target.value); setSelectedUni(careers.find(c => c.slug === e.target.value)?.universities[0] || ""); }} className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2">
+                {careers.map(c => <option key={c.slug} value={c.slug}>{c.name}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="mb-2 block text-sm font-medium flex items-center gap-2"><Building2 className="h-4 w-4" /> Universidad objetivo</label>
+              <select value={selectedUni} onChange={e => setSelectedUni(e.target.value)} className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2">
+                {targetCareer.universities.map(u => <option key={u} value={u}>{u}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setStarted(true)}
+            className="w-full rounded-xl bg-primary px-8 py-4 font-bold text-primary-foreground shadow-lg transition-transform hover:scale-[1.02]"
+          >
+            Iniciar Simulacro
+          </button>
+          <p className="mt-4 text-xs text-muted-foreground text-center">
+            * Esto es un simulacro de práctica. No es el examen real de admisión.
+          </p>
+        </div>
       </div>
     );
   }
