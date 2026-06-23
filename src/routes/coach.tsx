@@ -13,8 +13,8 @@ const initial: Msg[] = [
   { role: "ai", text: "¡Hola! Soy Alex, tu coach vocacional. ¿En qué puedo ayudarte hoy? 😊" },
   { role: "user", text: "Estoy entre Ingeniería de Sistemas y Marketing. No sé qué elegir." },
   { role: "ai", text: "Excelente que estés explorando ambas. Según tu perfil, tienes 92% de afinidad con Sistemas (destacas en lógica y creatividad técnica) y 81% con Marketing (comunicación y análisis). ¿Te gustaría que comparemos malla, salarios y estilo de vida de cada una?" },
-  { role: "user", text: "Sí, por favor." },
-  { role: "ai", text: "Perfecto. Ingeniería de Sistemas suele tener trabajo más estructurado y técnico; Marketing es más dinámico, social y orientado a resultados. ¿Qué tipo de entorno te emociona más: construir productos o conectar con audiencias?" },
+  { role: "user", text: "Sí, por favor. Y también quisiera saber si tengo el nivel para ingresar a la universidad a Sistemas." },
+  { role: "ai", text: "Sistemas suele tener trabajo más estructurado y técnico; Marketing es más dinámico. Sobre tu nivel, ¡claro que puedes lograrlo! De hecho, si quieres medir tu conocimiento actual, te sugiero realizar nuestro **Simulador de Admisión** de 15 preguntas, está en tu menú principal y te dará un plan de refuerzo." },
 ];
 
 function CoachPage() {

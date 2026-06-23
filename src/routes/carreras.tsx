@@ -46,17 +46,26 @@ function CareersPage() {
 
       <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((c) => (
-          <Link key={c.slug} to="/carreras/$slug" params={{ slug: c.slug }} className="group rounded-3xl border border-border bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl">
+          <Link key={c.slug} to="/carreras/$slug" params={{ slug: c.slug }} className="group rounded-3xl border border-border bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl flex flex-col">
             <div className="flex items-center justify-between">
               <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">{c.area}</span>
-              <span className="text-sm font-bold text-primary">{c.affinity}% afinidad</span>
+              <span className="text-xs font-bold text-accent px-2 py-1 bg-accent/10 rounded-lg">{c.employability} Demanda</span>
             </div>
-            <h3 className="mt-3 text-lg font-semibold">{c.name}</h3>
-            <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{c.description}</p>
-            <div className="mt-4 grid grid-cols-3 gap-2 text-[11px] text-muted-foreground">
-              <span className="flex items-center gap-1"><Briefcase className="h-3 w-3" /> {c.employability}</span>
-              <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {c.duration}</span>
-              <span className="flex items-center gap-1"><TrendingUp className="h-3 w-3" /> Tendencia ↑</span>
+            <h3 className="mt-4 text-xl font-bold">{c.name}</h3>
+            <p className="mt-2 line-clamp-2 text-sm text-muted-foreground flex-1">{c.description}</p>
+            
+            <div className="mt-5 pt-5 border-t border-border grid grid-cols-2 gap-3 text-sm">
+              <div>
+                <div className="text-xs text-muted-foreground mb-1">Salario aprox.</div>
+                <div className="font-semibold">{c.salary}</div>
+              </div>
+              <div>
+                <div className="text-xs text-muted-foreground mb-1">Duración</div>
+                <div className="font-semibold flex items-center gap-1"><Clock className="h-3 w-3" /> {c.duration}</div>
+              </div>
+            </div>
+            <div className="mt-4 text-xs text-muted-foreground bg-muted/50 p-3 rounded-xl line-clamp-2">
+              <strong>Puestos:</strong> {c.fields.join(", ")}
             </div>
           </Link>
         ))}

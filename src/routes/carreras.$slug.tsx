@@ -34,9 +34,6 @@ function CareerDetail() {
         <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium">{c.area}</span>
         <h1 className="mt-3 text-3xl font-extrabold sm:text-4xl">{c.name}</h1>
         <p className="mt-3 max-w-2xl text-primary-foreground/90">{c.description}</p>
-        <div className="mt-4 inline-flex items-center rounded-full bg-white/20 px-4 py-2 text-sm font-semibold">
-          {c.affinity}% de afinidad estimada
-        </div>
       </div>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-4">
@@ -53,6 +50,30 @@ function CareerDetail() {
           </div>
         ))}
       </div>
+
+      {c.branches && (
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold mb-4">Especialidades / Ramas</h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {c.branches.map((b) => (
+              <div key={b.name} className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+                <h3 className="font-bold text-lg mb-2">{b.name}</h3>
+                <p className="text-sm text-muted-foreground mb-4">{b.description}</p>
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div>
+                    <span className="text-muted-foreground block mb-1">Salario</span>
+                    <span className="font-semibold">{b.salary}</span>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground block mb-1">Tiempo</span>
+                    <span className="font-semibold">{b.duration}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         <div className="rounded-3xl border border-border bg-card p-6 shadow-sm">

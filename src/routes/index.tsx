@@ -56,6 +56,27 @@ function Index() {
         </div>
       </section>
 
+      {/* Bullets de Impacto */}
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <div className="grid gap-6 md:grid-cols-3">
+          <div className="rounded-3xl border border-border bg-accent p-8 text-accent-foreground shadow-md transition-transform hover:-translate-y-1">
+            <div className="text-5xl font-black mb-4">60%</div>
+            <p className="text-lg font-bold mb-4 leading-tight">De jóvenes en el Perú no termina ejerciendo la carrera que estudió.</p>
+            <p className="text-xs opacity-70">* Dato referencial — fuente por confirmar</p>
+          </div>
+          <div className="rounded-3xl border border-border bg-primary p-8 text-primary-foreground shadow-md transition-transform hover:-translate-y-1">
+            <div className="text-5xl font-black mb-4">1 de 3</div>
+            <p className="text-lg font-bold mb-4 leading-tight">Estudiantes cambia de carrera o universidad en sus primeros dos años.</p>
+            <p className="text-xs opacity-70">* Dato referencial — fuente por confirmar</p>
+          </div>
+          <div className="rounded-3xl border border-border bg-secondary p-8 text-secondary-foreground shadow-md transition-transform hover:-translate-y-1">
+            <div className="text-5xl font-black mb-4">80%</div>
+            <p className="text-lg font-bold mb-4 leading-tight">Se reduce el riesgo de deserción al elegir con herramientas de autoconocimiento.</p>
+            <p className="text-xs opacity-70">* Dato referencial — fuente por confirmar</p>
+          </div>
+        </div>
+      </section>
+
       {/* Cómo funciona */}
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
         <div className="text-center">
@@ -87,7 +108,6 @@ function Index() {
             <Link key={c.slug} to="/carreras/$slug" params={{ slug: c.slug }} className="group rounded-3xl border border-border bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl">
               <div className="flex items-center justify-between">
                 <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">{c.area}</span>
-                <span className="text-sm font-bold text-primary">{c.affinity}%</span>
               </div>
               <h3 className="mt-3 text-lg font-semibold">{c.name}</h3>
               <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{c.description}</p>

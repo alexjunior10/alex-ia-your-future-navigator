@@ -44,6 +44,16 @@ function PadresPage() {
         </div>
       </div>
 
+      <div className="mt-6 rounded-3xl border border-border bg-card p-6 shadow-sm flex items-start gap-4">
+        <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-secondary/10 text-secondary">
+          <Lightbulb className="h-6 w-6" />
+        </div>
+        <div>
+          <h3 className="text-lg font-semibold">Simulacro de Admisión</h3>
+          <p className="mt-1 text-sm text-muted-foreground">Tu hijo(a) ha realizado un simulacro referencial enfocado en <strong>Ingeniería</strong>. Su desempeño indica que <strong className="text-foreground">va por muy buen camino</strong>. Tiene conocimientos sólidos en formación, pero recomendamos reforzar razonamiento matemático. Celebra su esfuerzo y anímale a seguir repasando de forma constante, sin presión.</p>
+        </div>
+      </div>
+
       <h2 className="mt-12 text-2xl font-bold">Consejos para acompañar</h2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         {tips.map((t) => (

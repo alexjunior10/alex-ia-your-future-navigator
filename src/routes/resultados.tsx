@@ -1,13 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, ArrowRight, Sparkles } from "lucide-react";
-import { careers, skills } from "../lib/mock-data";
+import { Check, ArrowRight, Sparkles, BrainCircuit, Target, AlertTriangle, BookOpen, GraduationCap } from "lucide-react";
+import { careers, mockAdnProfile } from "../lib/mock-data";
 
 export const Route = createFileRoute("/resultados")({
-  head: () => ({ meta: [{ title: "Tus resultados — Alex IA" }, { name: "description", content: "Tu perfil vocacional con carreras recomendadas y radar de habilidades." }] }),
-  component: Results,
+  head: () => ({ meta: [{ title: "Tus Resultados Narrativos — Alex IA" }] }),
+  component: ResultsPage,
 });
 
-function Radar({ data }: { data: typeof skills }) {
+function Radar({ data }: { data: { name: string; value: number }[] }) {
   const size = 260;
   const center = size / 2;
   const radius = 100;
@@ -40,71 +40,172 @@ function Radar({ data }: { data: typeof skills }) {
   );
 }
 
-function Results() {
-  const top = careers.slice(0, 3);
+function ResultsPage() {
+  const topCareers = careers.slice(0, 5); // Tomamos el top 5
+  const top1 = topCareers[0];
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      <div className="text-center">
-        <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-          <Sparkles className="h-3.5 w-3.5" /> Resultado del test
+      <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
+          <Sparkles className="h-4 w-4" /> Tu Perfil Vocacional
         </span>
-        <h1 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">Este es tu perfil vocacional</h1>
-        <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground">
-          Compatibilidad general estimada: <span className="font-semibold text-foreground">87%</span> · valor referencial basado en tus respuestas.
+        <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-6xl text-foreground">
+          Tu ADN Profesional es:<br />
+          <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            {mockAdnProfile.arquetipo}
+          </span>
+        </h1>
+        <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+          {mockAdnProfile.description}
         </p>
       </div>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-3">
-        {top.map((c, i) => (
-          <Link key={c.slug} to="/carreras/$slug" params={{ slug: c.slug }} className="group rounded-3xl border border-border bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl">
-            <div className="flex items-center justify-between">
-              <span className="rounded-full bg-accent/20 px-3 py-1 text-xs font-semibold text-accent-foreground">Top {i + 1}</span>
-              <span className="text-2xl font-extrabold text-primary">{c.affinity}%</span>
+      <div className="grid gap-8 lg:grid-cols-2 mb-16">
+        <div className="rounded-3xl border border-border bg-card p-8 shadow-sm">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="grid h-10 w-10 place-items-center rounded-xl bg-accent/20 text-accent-foreground">
+              <BrainCircuit className="h-5 w-5" />
             </div>
-            <h3 className="mt-3 text-xl font-bold">{c.name}</h3>
-            <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">{c.description}</p>
-            <div className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary">
-              Explorar carrera <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <h3 className="text-2xl font-bold">Tus Superpoderes</h3>
+          </div>
+          <p className="text-sm text-muted-foreground mb-6">
+            Basado en tus respuestas, estas son tus fortalezas naturales.
+          </p>
+          <div className="grid place-items-center">
+            <Radar data={mockAdnProfile.superpoderes} />
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-border bg-card p-8 shadow-sm">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="grid h-10 w-10 place-items-center rounded-xl bg-secondary/20 text-secondary">
+              <Target className="h-5 w-5" />
             </div>
-          </Link>
-        ))}
+            <h3 className="text-2xl font-bold">Tu Entorno Ideal</h3>
+          </div>
+          <ul className="space-y-4 mt-6">
+            {mockAdnProfile.entornoIdeal.map((entorno) => (
+              <li key={entorno} className="flex items-start gap-3 rounded-2xl bg-muted/50 p-4">
+                <span className="grid h-6 w-6 place-items-center rounded-full bg-secondary/20 text-secondary shrink-0">
+                  <Check className="h-3 w-3" />
+                </span>
+                <span className="font-medium text-foreground">{entorno}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-2">
+      <div className="mb-16">
+        <h2 className="text-3xl font-bold text-center mb-10">Tu Top 5 de Carreras</h2>
+        <div className="space-y-6">
+          {topCareers.map((c, i) => (
+            <div key={c.slug} className={`rounded-3xl border ${i === 0 ? 'border-primary shadow-md' : 'border-border shadow-sm'} bg-card overflow-hidden`}>
+              <div className="p-6 sm:p-8 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className={`rounded-full px-3 py-1 text-xs font-bold ${i === 0 ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>
+                      Top {i + 1}
+                    </span>
+                    <h3 className="text-2xl font-bold">{c.name}</h3>
+                  </div>
+                  <p className="text-muted-foreground">{c.description}</p>
+                </div>
+                <div className="text-left md:text-right w-full md:w-auto">
+                  <div className="text-3xl font-extrabold text-primary mb-1">{c.affinity}%</div>
+                  <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Afinidad</div>
+                </div>
+              </div>
+              
+              {/* Si es el top 1, mostramos las especialidades */}
+              {i === 0 && c.branches && (
+                <div className="bg-muted/30 border-t border-border p-6 sm:p-8">
+                  <h4 className="font-semibold text-foreground mb-4">Especialidades que encajan contigo:</h4>
+                  <div className="grid sm:grid-cols-3 gap-4">
+                    {c.branches.map(b => (
+                      <div key={b.name} className="rounded-2xl bg-background border border-border p-4">
+                        <h5 className="font-bold text-primary mb-2">{b.name}</h5>
+                        <p className="text-xs text-muted-foreground mb-3">{b.description}</p>
+                        <div className="text-xs space-y-1">
+                          <p><strong>Salario:</strong> {b.salary}</p>
+                          <p><strong>Tiempo:</strong> {b.duration}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid gap-8 lg:grid-cols-3 mb-16">
+        <div className="rounded-3xl border border-accent bg-card p-6 shadow-sm">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-2xl">🎁</span>
+            <h3 className="text-xl font-bold">Carrera Sorpresa</h3>
+          </div>
+          <h4 className="font-bold text-accent mb-2">{mockAdnProfile.carreraSorpresa.name} ({mockAdnProfile.carreraSorpresa.affinity}%)</h4>
+          <p className="text-sm text-muted-foreground">{mockAdnProfile.carreraSorpresa.reason}</p>
+        </div>
+
         <div className="rounded-3xl border border-border bg-card p-6 shadow-sm">
-          <h3 className="text-lg font-semibold">Radar de habilidades</h3>
-          <p className="text-sm text-muted-foreground">Una vista referencial de tus dimensiones más fuertes.</p>
-          <div className="mt-4 grid place-items-center">
-            <Radar data={skills} />
+          <div className="flex items-center gap-3 mb-4">
+            <AlertTriangle className="h-6 w-6 text-destructive" />
+            <h3 className="text-xl font-bold">Tu Mayor Desafío</h3>
+          </div>
+          <h4 className="font-semibold text-foreground mb-2">{mockAdnProfile.mayorDesafio.title}</h4>
+          <p className="text-sm text-muted-foreground mb-3">{mockAdnProfile.mayorDesafio.description}</p>
+          <div className="rounded-xl bg-primary/10 p-3 text-xs font-medium text-primary">
+            💡 {mockAdnProfile.mayorDesafio.advice}
           </div>
         </div>
-        <div className="grid gap-6">
-          <div className="rounded-3xl border border-border bg-card p-6 shadow-sm">
-            <h3 className="text-lg font-semibold">Tus fortalezas</h3>
-            <ul className="mt-3 space-y-2 text-sm">
-              {["Creatividad para proponer ideas nuevas", "Comunicación clara y empática", "Pensamiento analítico", "Adaptabilidad ante cambios"].map((f) => (
-                <li key={f} className="flex items-start gap-2">
-                  <span className="mt-0.5 grid h-5 w-5 place-items-center rounded-full bg-primary/10 text-primary">
-                    <Check className="h-3 w-3" />
-                  </span>
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
+
+        <div className="rounded-3xl border border-border bg-card p-6 shadow-sm">
+          <div className="flex items-center gap-3 mb-4">
+            <BookOpen className="h-6 w-6 text-primary" />
+            <h3 className="text-xl font-bold">Plan de Acción</h3>
           </div>
-          <div className="rounded-3xl border border-border bg-card p-6 shadow-sm">
-            <h3 className="text-lg font-semibold">Oportunidades de crecimiento</h3>
-            <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-              <li>• Sigue desarrollando tu disciplina con metas semanales pequeñas.</li>
-              <li>• Practica hablar en público en contextos seguros.</li>
-              <li>• Explora cursos cortos de tecnología para ampliar opciones.</li>
-            </ul>
-          </div>
+          <ul className="space-y-3">
+            {mockAdnProfile.planAccion.map((plan, i) => (
+              <li key={i} className="flex gap-2 text-sm text-muted-foreground">
+                <span className="font-bold text-primary">{i+1}.</span>
+                <span>{plan}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
-      <div className="mt-10 rounded-2xl bg-muted/60 p-4 text-xs leading-relaxed text-muted-foreground">
-        Estos resultados son referenciales. Alex IA no constituye un diagnóstico psicológico ni reemplaza la evaluación de un psicólogo u orientador vocacional certificado.
+      {/* CTA AL EXAMEN DE ADMISION */}
+      <div className="rounded-3xl bg-gradient-to-br from-primary to-secondary p-8 sm:p-12 text-center text-primary-foreground shadow-xl">
+        <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-white/20 mb-6 backdrop-blur-md">
+          <GraduationCap className="h-8 w-8" />
+        </div>
+        <h2 className="text-3xl font-extrabold mb-4">¿Quieres medir tu nivel actual?</h2>
+        <p className="text-primary-foreground/90 max-w-2xl mx-auto mb-8 text-lg">
+          Te hemos recomendado <strong>{top1.name}</strong>. Intenta un examen de práctica corto (15 preguntas) basado en el estilo de las mejores universidades para esta carrera.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link
+            to="/examen"
+            className="rounded-full bg-background px-8 py-4 font-bold text-primary shadow-lg transition-transform hover:scale-105"
+          >
+            Sí, quiero intentarlo
+          </Link>
+          <Link
+            to="/"
+            className="rounded-full border border-primary-foreground/30 bg-primary-foreground/10 px-8 py-4 font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/20"
+          >
+            Tal vez después
+          </Link>
+        </div>
+      </div>
+
+      <div className="mt-12 rounded-2xl bg-muted/60 p-4 text-xs leading-relaxed text-muted-foreground text-center">
+        Alex IA es una herramienta de orientación y autoconocimiento. No constituye un diagnóstico psicológico ni reemplaza la evaluación de un psicólogo u orientador vocacional certificado. Los resultados son estimaciones referenciales basadas en tus respuestas, no mediciones exactas de habilidad o éxito futuro.
       </div>
     </div>
   );
