@@ -14,10 +14,21 @@ function TestPage() {
   const [qIdx, setQIdx] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
   const [sliderVal, setSliderVal] = useState(50);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const dim = testDimensions[dimIdx];
 
-  const handleNext = () => {
+  const handleNext = (opt?: string) => {
+    if (opt) {
+      setSelectedOption(opt);
+      setTimeout(() => proceedToNext(), 400); // 400ms for check animation
+    } else {
+      proceedToNext();
+    }
+  };
+
+  const proceedToNext = () => {
+    setSelectedOption(null);
     if (qIdx + 1 < dim.questions.length) {
       setQIdx(qIdx + 1);
       setSliderVal(50);
@@ -84,22 +95,33 @@ function TestPage() {
         <p className="mt-3 text-sm text-muted-foreground">{dim.subtitle}</p>
       </div>
 
-      <div key={`${dimIdx}-${qIdx}`} className="rounded-3xl border border-border bg-card p-6 sm:p-10 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <h2 className="text-2xl font-bold text-foreground text-center mb-8">{dim.questions[qIdx].q}</h2>
+      <div key={`${dimIdx}-${qIdx}`} className="rounded-3xl border border-border bg-card p-6 sm:p-10 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 relative overflow-hidden">
+        <h2 className="text-3xl font-extrabold text-foreground text-center mb-2">{dim.questions[qIdx].q}</h2>
+        <p className="text-center text-muted-foreground mb-8 font-medium">¿Qué actividad te emociona más?</p>
 
         {dim.type === "emoji-cards" && (() => {
           const q = dim.questions[qIdx];
           return (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {q.opts.map((opt) => (
-                <button
-                  key={opt}
-                  onClick={handleNext}
-                  className="flex items-center gap-3 rounded-2xl border border-border bg-background p-4 text-left font-medium text-foreground transition-all hover:-translate-y-1 hover:border-primary hover:shadow-md"
-                >
-                  <span>{opt}</span>
-                </button>
-              ))}
+              {q.opts.map((opt) => {
+                const isSelected = selectedOption === opt;
+                return (
+                  <button
+                    key={opt}
+                    onClick={() => handleNext(opt)}
+                    className={`group relative flex items-center gap-3 rounded-2xl border p-4 text-left font-medium transition-all duration-300
+                      ${isSelected 
+                        ? "border-primary bg-primary/5 text-primary scale-[1.02] shadow-md" 
+                        : "border-border bg-background text-foreground hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:scale-[1.01]"
+                      }`}
+                  >
+                    <span className="flex-1">{opt}</span>
+                    <div className={`transition-all duration-300 ${isSelected ? "opacity-100 scale-100" : "opacity-0 scale-50 group-hover:opacity-30 group-hover:scale-100"}`}>
+                      <CheckCircle2 className={`h-5 w-5 ${isSelected ? "text-primary animate-in zoom-in" : "text-muted-foreground"}`} />
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           );
         })()}
@@ -109,18 +131,25 @@ function TestPage() {
           return (
             <div className="flex flex-col gap-3">
               {q.scenario && <p className="mb-4 text-muted-foreground text-center">{q.scenario}</p>}
-              {q.options.map((opt) => (
-                <button
-                  key={opt}
-                  onClick={handleNext}
-                  className="flex items-center gap-3 rounded-2xl border border-border bg-background p-4 text-left text-sm font-medium text-foreground transition-all hover:bg-muted"
-                >
-                  <div className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary/10 text-[10px] font-bold text-primary">
-                    {opt.charAt(0)}
-                  </div>
-                  <span>{opt.substring(2)}</span>
-                </button>
-              ))}
+              {q.options.map((opt) => {
+                const isSelected = selectedOption === opt;
+                return (
+                  <button
+                    key={opt}
+                    onClick={() => handleNext(opt)}
+                    className={`group flex items-center gap-4 rounded-2xl border p-4 text-left text-sm font-medium transition-all duration-300
+                      ${isSelected
+                        ? "border-secondary bg-secondary/5 text-secondary scale-[1.02] shadow-md"
+                        : "border-border bg-background text-foreground hover:bg-muted hover:border-secondary/30 hover:shadow-lg hover:scale-[1.01]"
+                      }`}
+                  >
+                    <div className={`grid h-8 w-8 shrink-0 place-items-center rounded-full transition-colors ${isSelected ? "bg-secondary/20 text-secondary" : "bg-primary/10 text-primary group-hover:bg-secondary/10 group-hover:text-secondary"}`}>
+                      {isSelected ? <CheckCircle2 className="h-4 w-4 animate-in zoom-in" /> : <span className="text-[11px] font-bold">{opt.charAt(0)}</span>}
+                    </div>
+                    <span className="flex-1">{opt.substring(2)}</span>
+                  </button>
+                );
+              })}
             </div>
           );
         })()}
@@ -142,10 +171,10 @@ function TestPage() {
                 <span>{q.right}</span>
               </div>
               <button
-                onClick={handleNext}
-                className="mt-10 w-full flex justify-center items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-md transition-all hover:scale-[1.02] hover:bg-primary/90"
+                onClick={() => handleNext()}
+                className="mt-10 w-full flex justify-center items-center gap-2 rounded-full bg-primary px-6 py-4 text-sm font-bold text-primary-foreground shadow-lg transition-transform hover:scale-[1.03] hover:bg-primary/90"
               >
-                Confirmar <CheckCircle2 className="h-4 w-4" />
+                Confirmar <CheckCircle2 className="h-5 w-5" />
               </button>
             </div>
           );

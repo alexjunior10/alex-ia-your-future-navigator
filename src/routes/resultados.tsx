@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { careers, mockAdnProfile } from "../lib/mock-data";
 
 export const Route = createFileRoute("/resultados")({
-  head: () => ({ meta: [{ title: "Tus Resultados Narrativos — Alex IA" }] }),
+  head: () => ({ meta: [{ title: "Tu ADN Profesional — Alex IA" }] }),
   component: ResultsPage,
 });
 

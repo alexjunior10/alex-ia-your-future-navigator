@@ -26,53 +26,67 @@ function Index() {
   return (
     <div className="overflow-hidden">
       {/* Hero */}
-      <section className="relative pb-16">
+      <section className="relative pb-16 pt-8">
         <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/10 via-background to-secondary/10" />
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 sm:px-6 md:grid-cols-2 md:py-16">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-8 sm:px-6 md:grid-cols-2 md:py-12">
           <div className="animate-fade-in">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-primary shadow-sm">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-primary shadow-sm mb-5">
               <Sparkles className="h-3.5 w-3.5" /> El Spotify de la orientación vocacional
             </span>
-            <h1 className="mt-5 text-4xl font-extrabold leading-tight tracking-tight text-foreground sm:text-5xl md:text-6xl">
+            <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-foreground sm:text-5xl md:text-6xl">
               Descubre la <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">carrera ideal</span> para ti con IA
             </h1>
             <p className="mt-5 max-w-lg text-base text-muted-foreground sm:text-lg">
               Alex IA analiza tu personalidad, intereses y habilidades para ayudarte a tomar una de las decisiones más importantes de tu vida.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link to="/test" className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-transform hover:scale-105">
+              <Link to="/test" className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-transform hover:scale-105 hover:bg-primary/90">
                 Realizar Test <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link to="/carreras" className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground hover:bg-muted">
+              <Link to="/carreras" className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground hover:bg-muted transition-colors">
                 Explorar Carreras
               </Link>
             </div>
             <p className="mt-5 text-xs text-muted-foreground">+ de 12,000 estudiantes peruanos ya descubrieron su camino.</p>
           </div>
-          <div className="relative animate-fade-in">
+          <div className="relative animate-fade-in hidden md:block">
             <div className="absolute -inset-4 -z-10 rounded-[2.5rem] bg-gradient-to-br from-primary/20 to-accent/30 blur-2xl" />
-            <img src={heroImg} alt="Estudiante explorando carreras con Alex IA" width={1280} height={960} className="rounded-3xl shadow-2xl shadow-primary/10" />
+            <img src={heroImg} alt="Estudiante explorando carreras con Alex IA" width={1280} height={960} className="rounded-3xl shadow-2xl shadow-primary/10 object-cover aspect-[4/3]" />
           </div>
         </div>
-      </section>
 
-      {/* Bullets de Impacto */}
-      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 relative z-10 -mt-12">
-        <div className="grid gap-6 md:grid-cols-3">
-          <div className="rounded-3xl border border-border bg-accent p-8 text-accent-foreground shadow-md transition-transform hover:-translate-y-1">
-            <div className="text-5xl font-black mb-4">60%</div>
-            <p className="text-lg font-bold mb-4 leading-tight">De jóvenes en el Perú no termina ejerciendo la carrera que estudió.</p>
-            <p className="text-xs opacity-70">* Dato referencial — fuente por confirmar</p>
-          </div>
-          <div className="rounded-3xl border border-border bg-primary p-8 text-primary-foreground shadow-md transition-transform hover:-translate-y-1">
-            <div className="text-5xl font-black mb-4">1 de 3</div>
-            <p className="text-lg font-bold mb-4 leading-tight">Estudiantes cambia de carrera o universidad en sus primeros dos años.</p>
-            <p className="text-xs opacity-70">* Dato referencial — fuente por confirmar</p>
-          </div>
-          <div className="rounded-3xl border border-border bg-secondary p-8 text-secondary-foreground shadow-md transition-transform hover:-translate-y-1">
-            <div className="text-5xl font-black mb-4">80%</div>
-            <p className="text-lg font-bold mb-4 leading-tight">Se reduce el riesgo de deserción al elegir con herramientas de autoconocimiento.</p>
-            <p className="text-xs opacity-70">* Dato referencial — fuente por confirmar</p>
+        {/* Premium Stats integradas al Hero */}
+        <div className="mx-auto max-w-6xl px-4 mt-8 sm:px-6 relative z-10 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="group rounded-3xl border border-border/50 bg-card/60 backdrop-blur-md p-6 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-orange-500/50">
+              <div className="flex items-start gap-4">
+                <span className="text-3xl filter drop-shadow-sm transition-transform group-hover:scale-110">🟧</span>
+                <div>
+                  <div className="text-3xl font-black bg-gradient-to-br from-orange-400 to-orange-600 bg-clip-text text-transparent mb-1">60%</div>
+                  <p className="text-sm font-medium leading-tight text-foreground">de jóvenes en Perú no termina ejerciendo la carrera que estudió.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="group rounded-3xl border border-border/50 bg-card/60 backdrop-blur-md p-6 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-blue-500/50">
+              <div className="flex items-start gap-4">
+                <span className="text-3xl filter drop-shadow-sm transition-transform group-hover:scale-110">🟦</span>
+                <div>
+                  <div className="text-3xl font-black bg-gradient-to-br from-blue-400 to-blue-600 bg-clip-text text-transparent mb-1">1 de 3</div>
+                  <p className="text-sm font-medium leading-tight text-foreground">estudiantes cambia de carrera o universidad en sus primeros años.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="group rounded-3xl border border-border/50 bg-card/60 backdrop-blur-md p-6 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-purple-500/50">
+              <div className="flex items-start gap-4">
+                <span className="text-3xl filter drop-shadow-sm transition-transform group-hover:scale-110">🟪</span>
+                <div>
+                  <div className="text-3xl font-black bg-gradient-to-br from-purple-400 to-purple-600 bg-clip-text text-transparent mb-1">80%</div>
+                  <p className="text-sm font-medium leading-tight text-foreground">reduce el riesgo de deserción usando herramientas de autoconocimiento.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

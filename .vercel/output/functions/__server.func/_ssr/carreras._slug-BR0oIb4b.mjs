@@ -1,5 +1,5 @@
-import { n as careers } from "./mock-data-cwiuQowp.mjs";
 import { f as lazyRouteComponent, j as notFound, p as createFileRoute } from "../_libs/@tanstack/react-router+[...].mjs";
+import { n as careers } from "./mock-data-cwiuQowp.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/carreras._slug-BR0oIb4b.js
 var $$splitNotFoundComponentImporter = () => import("./carreras._slug-CIqmZlod.mjs");
 var $$splitComponentImporter = () => import("./carreras._slug-DL7o-swG.mjs");

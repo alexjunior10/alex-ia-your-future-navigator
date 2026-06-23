@@ -33,7 +33,7 @@ function RegistroEstudiante() {
     } else {
       // Finish
       login("student");
-      navigate({ to: "/test" });
+      navigate({ to: "/bienvenida" });
     }
   };
 

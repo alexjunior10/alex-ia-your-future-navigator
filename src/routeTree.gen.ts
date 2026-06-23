@@ -18,6 +18,7 @@ import { Route as ExamenRouteImport } from './routes/examen'
 import { Route as ColegiosRouteImport } from './routes/colegios'
 import { Route as CoachRouteImport } from './routes/coach'
 import { Route as CarrerasRouteImport } from './routes/carreras'
+import { Route as BienvenidaRouteImport } from './routes/bienvenida'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RegistroPadreRouteImport } from './routes/registro.padre'
 import { Route as RegistroEstudianteRouteImport } from './routes/registro.estudiante'
@@ -68,6 +69,11 @@ const CarrerasRoute = CarrerasRouteImport.update({
   path: '/carreras',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BienvenidaRoute = BienvenidaRouteImport.update({
+  id: '/bienvenida',
+  path: '/bienvenida',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -91,6 +97,7 @@ const CarrerasSlugRoute = CarrerasSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bienvenida': typeof BienvenidaRoute
   '/carreras': typeof CarrerasRouteWithChildren
   '/coach': typeof CoachRoute
   '/colegios': typeof ColegiosRoute
@@ -106,6 +113,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bienvenida': typeof BienvenidaRoute
   '/carreras': typeof CarrerasRouteWithChildren
   '/coach': typeof CoachRoute
   '/colegios': typeof ColegiosRoute
@@ -122,6 +130,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bienvenida': typeof BienvenidaRoute
   '/carreras': typeof CarrerasRouteWithChildren
   '/coach': typeof CoachRoute
   '/colegios': typeof ColegiosRoute
@@ -139,6 +148,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/bienvenida'
     | '/carreras'
     | '/coach'
     | '/colegios'
@@ -154,6 +164,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/bienvenida'
     | '/carreras'
     | '/coach'
     | '/colegios'
@@ -169,6 +180,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/bienvenida'
     | '/carreras'
     | '/coach'
     | '/colegios'
@@ -185,6 +197,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BienvenidaRoute: typeof BienvenidaRoute
   CarrerasRoute: typeof CarrerasRouteWithChildren
   CoachRoute: typeof CoachRoute
   ColegiosRoute: typeof ColegiosRoute
@@ -263,6 +276,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CarrerasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bienvenida': {
+      id: '/bienvenida'
+      path: '/bienvenida'
+      fullPath: '/bienvenida'
+      preLoaderRoute: typeof BienvenidaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -308,6 +328,7 @@ const CarrerasRouteWithChildren = CarrerasRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BienvenidaRoute: BienvenidaRoute,
   CarrerasRoute: CarrerasRouteWithChildren,
   CoachRoute: CoachRoute,
   ColegiosRoute: ColegiosRoute,
