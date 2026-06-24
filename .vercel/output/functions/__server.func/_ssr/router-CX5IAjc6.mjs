@@ -5,10 +5,10 @@ import { D as CircleCheck, I as ArrowRight, T as CircleUser, g as Linkedin, l as
 import { t as Route$14 } from "./carreras._slug-BR0oIb4b.mjs";
 import { n as useAuth, t as AuthProvider } from "./use-auth-PAiYZATh.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-BMWeYT5C.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-CX5IAjc6.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-Dk7HNB6a.css";
+var styles_default = "/assets/styles-B0VzlIKJ.css";
 function reportLovableError(error, context = {}) {
 	if (typeof window === "undefined") return;
 	window.__lovableEvents?.captureException?.(error, {
@@ -518,7 +518,7 @@ var Route$9 = createFileRoute("/padres")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$9, "component")
 });
-var $$splitComponentImporter$8 = () => import("./login-BSNnAcnj.mjs");
+var $$splitComponentImporter$8 = () => import("./login-DnAam8-l.mjs");
 var Route$8 = createFileRoute("/login")({
 	head: () => ({ meta: [{ title: "Iniciar Sesión — Alex IA" }] }),
 	component: lazyRouteComponent($$splitComponentImporter$8, "component")

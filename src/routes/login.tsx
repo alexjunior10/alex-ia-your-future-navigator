@@ -23,12 +23,35 @@ function LoginPage() {
     if (role === "school") navigate({ to: "/colegios" });
   };
 
+  const leftPanelContent = {
+    student: {
+      emoji: "🧭",
+      title: '"No te diremos qué estudiar.\\nTe ayudaremos a descubrir quién puedes llegar a ser."',
+      subtitle: "Únete a miles de estudiantes que ya están diseñando su futuro con propósito.",
+      gradient: "from-primary to-secondary"
+    },
+    parent: {
+      emoji: "🤝",
+      title: '"El futuro de tus hijos comienza con las decisiones de hoy."',
+      subtitle: "Acompáñalos en cada paso hacia su desarrollo profesional con herramientas de IA.",
+      gradient: "from-secondary to-primary"
+    },
+    school: {
+      emoji: "🏫",
+      title: '"Transformamos la orientación vocacional de tu colegio."',
+      subtitle: "Empodera a tus alumnos con datos y tecnología para que tomen las mejores decisiones.",
+      gradient: "from-accent to-accent/80"
+    }
+  };
+
+  const content = leftPanelContent[activeTab];
+
   return (
     <div className="min-h-[85vh] flex items-center justify-center p-4 sm:p-6">
       <div className="w-full max-w-5xl overflow-hidden rounded-[2.5rem] bg-card border border-border shadow-2xl flex flex-col md:flex-row">
         
         {/* Panel Izquierdo - Ilustración y Emoción */}
-        <div className="relative md:w-5/12 bg-gradient-to-br from-primary to-secondary p-10 text-primary-foreground flex flex-col justify-between overflow-hidden hidden sm:flex">
+        <div className={`relative md:w-5/12 bg-gradient-to-br ${content.gradient} p-10 text-primary-foreground flex flex-col justify-between overflow-hidden hidden sm:flex transition-colors duration-500`}>
           <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
           <div className="absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-black/10 blur-3xl" />
           
@@ -41,14 +64,18 @@ function LoginPage() {
             </Link>
           </div>
           
-          <div className="relative z-10 flex-1 flex flex-col justify-center">
-            <div className="text-6xl mb-6 filter drop-shadow-md">🧭</div>
+          <div key={activeTab} className="relative z-10 flex-1 flex flex-col justify-center animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="text-6xl mb-6 filter drop-shadow-md">{content.emoji}</div>
             <h2 className="text-3xl font-extrabold leading-tight mb-4">
-              "No te diremos qué estudiar.<br/>
-              Te ayudaremos a descubrir quién puedes llegar a ser."
+              {content.title.split('\\n').map((line, i) => (
+                <span key={i}>
+                  {line}
+                  <br />
+                </span>
+              ))}
             </h2>
             <p className="text-primary-foreground/80 font-medium">
-              Únete a miles de estudiantes que ya están diseñando su futuro con propósito.
+              {content.subtitle}
             </p>
           </div>
         </div>

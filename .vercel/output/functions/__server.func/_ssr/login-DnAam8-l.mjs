@@ -3,7 +3,7 @@ import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tan
 import { g as useNavigate, h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { h as LogIn, i as UserPlus, j as Building2, l as Sparkles, r as Users, x as GraduationCap } from "../_libs/lucide-react.mjs";
 import { n as useAuth } from "./use-auth-PAiYZATh.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/login-BSNnAcnj.js
+//#region node_modules/.nitro/vite/services/ssr/assets/login-DnAam8-l.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function LoginPage() {
@@ -19,12 +19,32 @@ function LoginPage() {
 		if (role === "parent") navigate({ to: "/padres" });
 		if (role === "school") navigate({ to: "/colegios" });
 	};
+	const content = {
+		student: {
+			emoji: "🧭",
+			title: "\"No te diremos qué estudiar.\\nTe ayudaremos a descubrir quién puedes llegar a ser.\"",
+			subtitle: "Únete a miles de estudiantes que ya están diseñando su futuro con propósito.",
+			gradient: "from-primary to-secondary"
+		},
+		parent: {
+			emoji: "🤝",
+			title: "\"El futuro de tus hijos comienza con las decisiones de hoy.\"",
+			subtitle: "Acompáñalos en cada paso hacia su desarrollo profesional con herramientas de IA.",
+			gradient: "from-secondary to-primary"
+		},
+		school: {
+			emoji: "🏫",
+			title: "\"Transformamos la orientación vocacional de tu colegio.\"",
+			subtitle: "Empodera a tus alumnos con datos y tecnología para que tomen las mejores decisiones.",
+			gradient: "from-accent to-accent/80"
+		}
+	}[activeTab];
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "min-h-[85vh] flex items-center justify-center p-4 sm:p-6",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "w-full max-w-5xl overflow-hidden rounded-[2.5rem] bg-card border border-border shadow-2xl flex flex-col md:flex-row",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative md:w-5/12 bg-gradient-to-br from-primary to-secondary p-10 text-primary-foreground flex flex-col justify-between overflow-hidden hidden sm:flex",
+				className: `relative md:w-5/12 bg-gradient-to-br ${content.gradient} p-10 text-primary-foreground flex flex-col justify-between overflow-hidden hidden sm:flex transition-colors duration-500`,
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" }),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-black/10 blur-3xl" }),
@@ -40,26 +60,22 @@ function LoginPage() {
 						})
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "relative z-10 flex-1 flex flex-col justify-center",
+						className: "relative z-10 flex-1 flex flex-col justify-center animate-in fade-in slide-in-from-bottom-4 duration-500",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 								className: "text-6xl mb-6 filter drop-shadow-md",
-								children: "🧭"
+								children: content.emoji
 							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 								className: "text-3xl font-extrabold leading-tight mb-4",
-								children: [
-									"\"No te diremos qué estudiar.",
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
-									"Te ayudaremos a descubrir quién puedes llegar a ser.\""
-								]
+								children: content.title.split("\\n").map((line, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [line, /* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {})] }, i))
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 								className: "text-primary-foreground/80 font-medium",
-								children: "Únete a miles de estudiantes que ya están diseñando su futuro con propósito."
+								children: content.subtitle
 							})
 						]
-					})
+					}, activeTab)
 				]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "md:w-7/12 p-8 sm:p-12 lg:p-16 flex flex-col justify-center bg-background",
