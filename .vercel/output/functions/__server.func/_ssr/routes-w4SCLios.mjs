@@ -2,10 +2,18 @@ import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.m
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { C as Compass, I as ArrowRight, N as Brain, l as Sparkles, x as GraduationCap } from "../_libs/lucide-react.mjs";
 import { n as careers } from "./mock-data-cwiuQowp.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-DplsK6bG.js
+import { n as useAuth } from "./use-auth-PAiYZATh.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-w4SCLios.js
 var import_jsx_runtime = require_jsx_runtime();
 var hero_default = "/assets/hero-0G_cQFM5.jpg";
 function Index() {
+	const { role, setShowAuthModal } = useAuth();
+	const handleTestClick = (e) => {
+		if (!role) {
+			e.preventDefault();
+			setShowAuthModal(true);
+		}
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "overflow-hidden",
 		children: [
@@ -41,6 +49,7 @@ function Index() {
 									className: "mt-7 flex flex-wrap gap-3",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
 										to: "/test",
+										onClick: handleTestClick,
 										className: "inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-transform hover:scale-105 hover:bg-primary/90",
 										children: ["Realizar Test ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, { className: "h-4 w-4" })]
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
@@ -238,6 +247,7 @@ function Index() {
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
 							to: "/test",
+							onClick: handleTestClick,
 							className: "mt-6 inline-flex items-center gap-2 rounded-full bg-background px-6 py-3 text-sm font-semibold text-primary shadow-lg hover:scale-105 transition-transform",
 							children: ["Comenzar mi test gratis ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, { className: "h-4 w-4" })]
 						})

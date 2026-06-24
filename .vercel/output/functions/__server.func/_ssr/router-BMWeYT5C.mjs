@@ -5,10 +5,10 @@ import { D as CircleCheck, I as ArrowRight, T as CircleUser, g as Linkedin, l as
 import { t as Route$14 } from "./carreras._slug-BR0oIb4b.mjs";
 import { n as useAuth, t as AuthProvider } from "./use-auth-PAiYZATh.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-DJEWewmg.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-BMWeYT5C.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-igSZTMqX.css";
+var styles_default = "/assets/styles-Dk7HNB6a.css";
 function reportLovableError(error, context = {}) {
 	if (typeof window === "undefined") return;
 	window.__lovableEvents?.captureException?.(error, {
@@ -55,16 +55,16 @@ var allItems = [
 ];
 function SiteHeader() {
 	const { role, logout, showAuthModal, setShowAuthModal } = useAuth();
-	const navigate = useNavigate();
+	useNavigate();
 	const handleLinkClick = (e, item) => {
 		if (item.isProtected && !role) {
 			e.preventDefault();
 			setShowAuthModal(true);
 		}
 	};
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("header", {
 		className: "sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-md",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
@@ -108,70 +108,7 @@ function SiteHeader() {
 					})
 				})
 			]
-		}), showAuthModal && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm animate-in fade-in",
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative w-full max-w-md rounded-3xl border border-border bg-card p-8 shadow-2xl animate-in zoom-in-95 duration-300",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-						onClick: () => setShowAuthModal(false),
-						className: "absolute right-6 top-6 text-muted-foreground hover:text-foreground transition-colors",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "h-5 w-5" })
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "text-center mb-6",
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "mx-auto mb-4 grid h-14 w-14 place-items-center rounded-2xl bg-primary/10 text-primary",
-								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sparkles, { className: "h-7 w-7" })
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-								className: "text-2xl font-bold tracking-tight",
-								children: "🚀 Descubre tu futuro con Alex IA"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "mt-2 text-sm text-muted-foreground",
-								children: "Para acceder a esta sección crea tu cuenta gratuita."
-							})
-						]
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "space-y-3 mb-8 bg-muted/50 p-4 rounded-2xl",
-						children: [
-							"Test vocacional completo.",
-							"Carreras y especialidades.",
-							"Coach IA personalizado.",
-							"Simulador de admisión."
-						].map((benefit) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex items-center gap-3 text-sm font-medium",
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, { className: "h-4 w-4 text-primary" }),
-								" ",
-								benefit
-							]
-						}, benefit))
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex flex-col gap-3",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-							onClick: () => {
-								setShowAuthModal(false);
-								navigate({ to: "/login" });
-							},
-							className: "w-full rounded-xl bg-primary px-4 py-3 font-bold text-primary-foreground transition-transform hover:scale-[1.02]",
-							children: "Crear cuenta"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-							onClick: () => {
-								setShowAuthModal(false);
-								navigate({ to: "/login" });
-							},
-							className: "w-full rounded-xl border border-border bg-background px-4 py-3 font-semibold text-foreground transition-colors hover:bg-muted",
-							children: "Ya tengo cuenta"
-						})]
-					})
-				]
-			})
-		})]
+		})
 	});
 }
 function SiteFooter() {
@@ -332,6 +269,76 @@ function SiteFooter() {
 		})]
 	});
 }
+function GlobalAuthModal() {
+	const { showAuthModal, setShowAuthModal } = useAuth();
+	const navigate = useNavigate();
+	if (!showAuthModal) return null;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm animate-in fade-in",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "relative w-full max-w-md rounded-3xl border border-border bg-card p-8 shadow-2xl animate-in zoom-in-95 duration-300 mx-4",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					onClick: () => setShowAuthModal(false),
+					className: "absolute right-6 top-6 rounded-full bg-muted/50 p-2 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors",
+					"aria-label": "Cerrar modal",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "h-5 w-5" })
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "text-center mb-6 mt-2",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "mx-auto mb-4 grid h-14 w-14 place-items-center rounded-2xl bg-primary/10 text-primary",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Sparkles, { className: "h-7 w-7" })
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+							className: "text-2xl font-bold tracking-tight",
+							children: "🚀 Descubre tu futuro"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-2 text-sm text-muted-foreground",
+							children: "Para acceder a esta sección crea tu cuenta gratuita."
+						})
+					]
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "space-y-3 mb-8 bg-muted/50 p-5 rounded-2xl",
+					children: [
+						"Test vocacional completo.",
+						"Carreras y especialidades.",
+						"Coach IA personalizado.",
+						"Simulador de admisión."
+					].map((benefit) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex items-center gap-3 text-sm font-medium",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, { className: "h-4 w-4 text-primary" }),
+							" ",
+							benefit
+						]
+					}, benefit))
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex flex-col gap-3",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						onClick: () => {
+							setShowAuthModal(false);
+							navigate({ to: "/login" });
+						},
+						className: "w-full rounded-xl bg-primary px-4 py-3 font-bold text-primary-foreground transition-transform hover:scale-[1.02] shadow-md hover:shadow-lg",
+						children: "Crear cuenta"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+						onClick: () => {
+							setShowAuthModal(false);
+							navigate({ to: "/login" });
+						},
+						className: "w-full rounded-xl border border-border bg-background px-4 py-3 font-semibold text-foreground transition-colors hover:bg-muted",
+						children: "Ya tengo cuenta"
+					})]
+				})
+			]
+		})
+	});
+}
 function NotFoundComponent() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "flex min-h-screen items-center justify-center bg-background px-4",
@@ -482,7 +489,8 @@ function RootComponent() {
 					className: "flex-1",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {})
 				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SiteFooter, {})
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SiteFooter, {}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(GlobalAuthModal, {})
 			]
 		}) })
 	});
@@ -549,7 +557,7 @@ var Route$3 = createFileRoute("/bienvenida")({
 	head: () => ({ meta: [{ title: "Bienvenido — Alex IA" }] }),
 	component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-var $$splitComponentImporter$2 = () => import("./routes-DplsK6bG.mjs");
+var $$splitComponentImporter$2 = () => import("./routes-w4SCLios.mjs");
 var Route$2 = createFileRoute("/")({
 	head: () => ({ meta: [
 		{ title: "Alex IA — Descubre la carrera ideal para ti" },

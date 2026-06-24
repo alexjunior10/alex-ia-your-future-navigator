@@ -1,4 +1,4 @@
-//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-CE-9aFEU.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-CWubebrj.js
 var tsrStartManifest = () => ({ routes: {
 	__root__: {
 		filePath: "C:/Users/Proyecto IA/alex-ia-your-future-navigator/src/routes/__root.tsx",
@@ -18,81 +18,81 @@ var tsrStartManifest = () => ({ routes: {
 			"/registro/padre"
 		],
 		preloads: [
-			"/assets/index-BT3aMhhO.js",
+			"/assets/index-Nwqf-cQD.js",
 			"/assets/jsx-runtime-DGeXAQPT.js",
 			"/assets/react-3W8R1pOO.js"
 		],
 		scripts: [{ attrs: {
 			type: "module",
 			async: !0,
-			src: "/assets/index-BT3aMhhO.js"
+			src: "/assets/index-Nwqf-cQD.js"
 		} }]
 	},
 	"/": {
 		filePath: "C:/Users/Proyecto IA/alex-ia-your-future-navigator/src/routes/index.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/routes-CeOL-qkT.js",
-			"/assets/brain-O1YHMpyW.js",
-			"/assets/graduation-cap-B5gYELN_.js"
+			"/assets/routes-Bp9UOlnr.js",
+			"/assets/brain-DVbaK4-i.js",
+			"/assets/graduation-cap-CC7a2HPe.js"
 		]
 	},
 	"/bienvenida": {
 		filePath: "C:/Users/Proyecto IA/alex-ia-your-future-navigator/src/routes/bienvenida.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/bienvenida-EKe5naCe.js",
-			"/assets/brain-O1YHMpyW.js",
-			"/assets/graduation-cap-B5gYELN_.js",
-			"/assets/target-JJXviti_.js"
+			"/assets/bienvenida-D5Gl7HbV.js",
+			"/assets/brain-DVbaK4-i.js",
+			"/assets/graduation-cap-CC7a2HPe.js",
+			"/assets/target-DXxkykEi.js"
 		]
 	},
 	"/carreras": {
 		filePath: "C:/Users/Proyecto IA/alex-ia-your-future-navigator/src/routes/carreras.tsx",
 		children: ["/carreras/$slug"],
-		preloads: ["/assets/carreras-CwUCbFwi.js", "/assets/clock-DzofmzDM.js"]
+		preloads: ["/assets/carreras-DspXAF9W.js", "/assets/clock-DmIfY0GP.js"]
 	},
 	"/coach": {
 		filePath: "C:/Users/Proyecto IA/alex-ia-your-future-navigator/src/routes/coach.tsx",
 		children: void 0,
-		preloads: ["/assets/coach-ZjkxE2oj.js"]
+		preloads: ["/assets/coach-C53bPAr-.js"]
 	},
 	"/colegios": {
 		filePath: "C:/Users/Proyecto IA/alex-ia-your-future-navigator/src/routes/colegios.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/colegios-rRJmgT-U.js",
-			"/assets/book-open-B5SxZwrA.js",
-			"/assets/users-TR-GVLcI.js"
+			"/assets/colegios-rjcei-m4.js",
+			"/assets/book-open-BhJgmVKe.js",
+			"/assets/users-tbQJ6SQe.js"
 		]
 	},
 	"/examen": {
 		filePath: "C:/Users/Proyecto IA/alex-ia-your-future-navigator/src/routes/examen.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/examen-DbwSNPJ9.js",
-			"/assets/book-open-B5SxZwrA.js",
-			"/assets/building-2-4W9Pv5W1.js",
-			"/assets/target-JJXviti_.js"
+			"/assets/examen-Bt8CGxdt.js",
+			"/assets/book-open-BhJgmVKe.js",
+			"/assets/building-2-By_ZkaSP.js",
+			"/assets/target-DXxkykEi.js"
 		]
 	},
 	"/login": {
 		filePath: "C:/Users/Proyecto IA/alex-ia-your-future-navigator/src/routes/login.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/login-BnbcoIAR.js",
-			"/assets/building-2-4W9Pv5W1.js",
-			"/assets/graduation-cap-B5gYELN_.js",
-			"/assets/users-TR-GVLcI.js"
+			"/assets/login-BHgEqiG0.js",
+			"/assets/building-2-By_ZkaSP.js",
+			"/assets/graduation-cap-CC7a2HPe.js",
+			"/assets/users-tbQJ6SQe.js"
 		]
 	},
 	"/padres": {
 		filePath: "C:/Users/Proyecto IA/alex-ia-your-future-navigator/src/routes/padres.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/padres-DZz5cI3S.js",
-			"/assets/heart-C2MVPPOP.js",
-			"/assets/message-circle-DAjqP7Z2.js"
+			"/assets/padres-CeX-bfFZ.js",
+			"/assets/heart-oXYgDIUg.js",
+			"/assets/message-circle-QBeUXbhF.js"
 		]
 	},
 	"/privacidad": {
@@ -104,40 +104,40 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/Users/Proyecto IA/alex-ia-your-future-navigator/src/routes/resultados.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/resultados-CXqNmcX0.js",
-			"/assets/book-open-B5SxZwrA.js",
-			"/assets/graduation-cap-B5gYELN_.js",
-			"/assets/message-circle-DAjqP7Z2.js",
-			"/assets/target-JJXviti_.js"
+			"/assets/resultados-OCCjcYx2.js",
+			"/assets/book-open-BhJgmVKe.js",
+			"/assets/graduation-cap-CC7a2HPe.js",
+			"/assets/message-circle-QBeUXbhF.js",
+			"/assets/target-DXxkykEi.js"
 		]
 	},
 	"/test": {
 		filePath: "C:/Users/Proyecto IA/alex-ia-your-future-navigator/src/routes/test.tsx",
 		children: void 0,
-		preloads: ["/assets/test-B_n94gE7.js", "/assets/arrow-left-6HNrrtgk.js"]
+		preloads: ["/assets/test-BhqBu8DS.js", "/assets/arrow-left-Pd0XPyKE.js"]
 	},
 	"/carreras/$slug": {
 		filePath: "C:/Users/Proyecto IA/alex-ia-your-future-navigator/src/routes/carreras.$slug.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/carreras._slug-8PHr8LDt.js",
-			"/assets/arrow-left-6HNrrtgk.js",
-			"/assets/graduation-cap-B5gYELN_.js",
-			"/assets/carreras._slug-DBrAxVDW.js"
+			"/assets/carreras._slug-B81JHr0F.js",
+			"/assets/carreras._slug-jeQM3POj.js",
+			"/assets/arrow-left-Pd0XPyKE.js",
+			"/assets/graduation-cap-CC7a2HPe.js"
 		]
 	},
 	"/registro/estudiante": {
 		filePath: "C:/Users/Proyecto IA/alex-ia-your-future-navigator/src/routes/registro.estudiante.tsx",
 		children: void 0,
-		preloads: ["/assets/registro.estudiante-DSs8INUF.js", "/assets/arrow-left-6HNrrtgk.js"]
+		preloads: ["/assets/registro.estudiante-wr6RtbGG.js", "/assets/arrow-left-Pd0XPyKE.js"]
 	},
 	"/registro/padre": {
 		filePath: "C:/Users/Proyecto IA/alex-ia-your-future-navigator/src/routes/registro.padre.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/registro.padre-D90KEt1X.js",
-			"/assets/arrow-left-6HNrrtgk.js",
-			"/assets/heart-C2MVPPOP.js"
+			"/assets/registro.padre-D9I1d_7m.js",
+			"/assets/arrow-left-Pd0XPyKE.js",
+			"/assets/heart-oXYgDIUg.js"
 		]
 	}
 } });

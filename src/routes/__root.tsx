@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "../components/site-header";
 import { SiteFooter } from "../components/site-footer";
+import { GlobalAuthModal } from "../components/global-auth-modal";
 import { AuthProvider } from "../hooks/use-auth";
 
 function NotFoundComponent() {
@@ -135,6 +136,7 @@ function RootComponent() {
             <Outlet />
           </main>
           <SiteFooter />
+          <GlobalAuthModal />
         </div>
       </AuthProvider>
     </QueryClientProvider>
