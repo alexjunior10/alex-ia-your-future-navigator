@@ -1,7 +1,8 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useAuth, type Role } from "../hooks/use-auth";
 import { useState } from "react";
-import { GraduationCap, Users, LogIn, UserPlus, Building2, Sparkles } from "lucide-react";
+import { GraduationCap, Users, LogIn, UserPlus, Building2, Sparkles, Loader2 } from "lucide-react";
+import { supabase } from "../integrations/supabase/client";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "Iniciar Sesión — Alex IA" }] }),
@@ -9,18 +10,44 @@ export const Route = createFileRoute("/login")({
 });
 
 function LoginPage() {
-  const { login } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<"student" | "parent" | "school">("student");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleLogin = (e: React.FormEvent, role: Role) => {
+  const handleLogin = async (e: React.FormEvent, role: Role) => {
     e.preventDefault();
-    login(role);
-    if (role === "student") navigate({ to: "/bienvenida" });
-    if (role === "parent") navigate({ to: "/padres" });
-    if (role === "school") navigate({ to: "/colegios" });
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email: username,
+        password: password,
+      });
+
+      if (authError) throw authError;
+
+      // Opcional: Validar que el rol del usuario coincida con el tab actual
+      // const userRole = data.user?.user_metadata?.role;
+      // if (userRole && userRole !== role) throw new Error("Credenciales inválidas para este perfil.");
+
+      if (role === "student") navigate({ to: "/bienvenida" });
+      if (role === "parent") navigate({ to: "/padres" });
+      if (role === "school") navigate({ to: "/colegios" });
+    } catch (err: any) {
+      if (err.message === "Invalid login credentials") {
+        setError("Correo o contraseña incorrectos.");
+      } else if (err.message === "Email not confirmed") {
+        setError("Por favor, verifica tu correo haciendo clic en el enlace que te enviamos.");
+      } else {
+        setError(err.message || "Error al iniciar sesión.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const leftPanelContent = {
@@ -115,6 +142,12 @@ function LoginPage() {
             </button>
           </div>
 
+          {error && (
+            <div className="mb-6 rounded-xl bg-destructive/10 p-4 text-sm font-semibold text-destructive animate-in fade-in">
+              {error}
+            </div>
+          )}
+
           {/* Formulario Estudiante o Padre */}
           {activeTab !== "school" && (
             <form onSubmit={(e) => handleLogin(e, activeTab)} className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
@@ -141,14 +174,21 @@ function LoginPage() {
                   placeholder="••••••••"
                   className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
                 />
+                <div className="mt-2 text-right">
+                  <Link to="/recuperar-clave" className="text-xs font-semibold text-primary hover:underline">
+                    ¿Olvidaste tu contraseña?
+                  </Link>
+                </div>
               </div>
 
               <div className="pt-4 flex flex-col sm:flex-row gap-3">
                 <button
                   type="submit"
-                  className="flex-1 flex justify-center items-center gap-2 rounded-xl bg-primary px-4 py-3 font-bold text-primary-foreground shadow-md transition-transform hover:scale-[1.02]"
+                  disabled={isLoading}
+                  className="flex-1 flex justify-center items-center gap-2 rounded-xl bg-primary px-4 py-3 font-bold text-primary-foreground shadow-md transition-transform hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100"
                 >
-                  <LogIn className="h-5 w-5" /> Ingresar
+                  {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <LogIn className="h-5 w-5" />}
+                  {isLoading ? "Ingresando..." : "Ingresar"}
                 </button>
 
                 <Link
@@ -197,17 +237,16 @@ function LoginPage() {
               <div className="pt-4">
                 <button
                   type="submit"
-                  className="w-full flex justify-center items-center gap-2 rounded-xl bg-accent px-4 py-3 font-bold text-accent-foreground shadow-md transition-transform hover:scale-[1.02]"
+                  disabled={isLoading}
+                  className="w-full flex justify-center items-center gap-2 rounded-xl bg-accent px-4 py-3 font-bold text-accent-foreground shadow-md transition-transform hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100"
                 >
-                  <LogIn className="h-5 w-5" /> Ingresar al Dashboard
+                  {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <LogIn className="h-5 w-5" />}
+                  {isLoading ? "Ingresando..." : "Ingresar al Dashboard"}
                 </button>
               </div>
             </form>
           )}
 
-          <p className="mt-8 text-xs text-muted-foreground/60 text-center">
-            * Prototipo: ingresa cualquier valor para simular el inicio de sesión.
-          </p>
         </div>
 
       </div>

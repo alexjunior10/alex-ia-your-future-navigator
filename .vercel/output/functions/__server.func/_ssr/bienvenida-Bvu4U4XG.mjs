@@ -1,6 +1,6 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { I as ArrowRight, N as Brain, c as Target, l as Sparkles, x as GraduationCap } from "../_libs/lucide-react.mjs";
+import { B as ArrowRight, L as Brain, T as GraduationCap, c as Target, l as Sparkles } from "../_libs/lucide-react.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/bienvenida-Bvu4U4XG.js
 var import_jsx_runtime = require_jsx_runtime();
 function BienvenidaPage() {

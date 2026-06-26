@@ -556,6 +556,22 @@ var Instagram = createLucideIcon("instagram", [
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var KeyRound = createLucideIcon("key-round", [["path", {
+	d: "M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z",
+	key: "1s6t7t"
+}], ["circle", {
+	cx: "16.5",
+	cy: "7.5",
+	r: ".5",
+	fill: "currentColor",
+	key: "w0ekpg"
+}]]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var Lightbulb = createLucideIcon("lightbulb", [
 	["path", {
 		d: "M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5",
@@ -601,6 +617,16 @@ var Linkedin = createLucideIcon("linkedin", [
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var LoaderCircle = createLucideIcon("loader-circle", [["path", {
+	d: "M21 12a9 9 0 1 1-6.219-8.56",
+	key: "13zald"
+}]]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var LogIn = createLucideIcon("log-in", [
 	["path", {
 		d: "m10 17 5-5-5-5",
@@ -635,6 +661,43 @@ var LogOut = createLucideIcon("log-out", [
 		key: "1uf3rs"
 	}]
 ]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
+var MailCheck = createLucideIcon("mail-check", [
+	["path", {
+		d: "M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8",
+		key: "12jkf8"
+	}],
+	["path", {
+		d: "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7",
+		key: "1ocrg3"
+	}],
+	["path", {
+		d: "m16 19 2 2 4-4",
+		key: "1b14m6"
+	}]
+]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
+var Mail = createLucideIcon("mail", [["path", {
+	d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7",
+	key: "132q7q"
+}], ["rect", {
+	x: "2",
+	y: "4",
+	width: "20",
+	height: "16",
+	rx: "2",
+	key: "izxlao"
+}]]);
 /**
 * @license lucide-react v0.575.0 - ISC
 *
@@ -888,4 +951,4 @@ var Youtube = createLucideIcon("youtube", [["path", {
 	key: "1jp15x"
 }]]);
 //#endregion
-export { Calendar as A, Compass as C, CircleCheck as D, CircleUserRound as E, BookOpen as F, ArrowRight as I, ArrowLeft as L, Briefcase as M, Brain as N, Check as O, BrainCircuit as P, Activity as R, DollarSign as S, CircleUser as T, Lightbulb as _, Trophy as a, HeartHandshake as b, Target as c, Send as d, Search as f, Linkedin as g, LogIn as h, UserPlus as i, Building2 as j, ChartColumn as k, Sparkles as l, LogOut as m, X as n, TriangleAlert as o, MessageCircle as p, Users as r, TrendingUp as s, Youtube as t, ShieldCheck as u, Instagram as v, Clock as w, GraduationCap as x, Heart as y };
+export { CircleUserRound as A, ArrowRight as B, Heart as C, Compass as D, DollarSign as E, Building2 as F, Activity as H, Briefcase as I, Brain as L, Check as M, ChartColumn as N, Clock as O, Calendar as P, BrainCircuit as R, Instagram as S, GraduationCap as T, ArrowLeft as V, LogIn as _, Trophy as a, Lightbulb as b, Target as c, Send as d, Search as f, LogOut as g, MailCheck as h, UserPlus as i, CircleCheck as j, CircleUser as k, Sparkles as l, Mail as m, X as n, TriangleAlert as o, MessageCircle as p, Users as r, TrendingUp as s, Youtube as t, ShieldCheck as u, LoaderCircle as v, HeartHandshake as w, KeyRound as x, Linkedin as y, BookOpen as z };

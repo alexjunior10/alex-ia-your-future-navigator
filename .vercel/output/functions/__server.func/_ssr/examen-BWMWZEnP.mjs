@@ -1,7 +1,7 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { F as BookOpen, R as Activity, a as Trophy, b as HeartHandshake, c as Target, j as Building2 } from "../_libs/lucide-react.mjs";
+import { F as Building2, H as Activity, a as Trophy, c as Target, w as HeartHandshake, z as BookOpen } from "../_libs/lucide-react.mjs";
 import { n as careers, t as admissionExams } from "./mock-data-cwiuQowp.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/examen-BWMWZEnP.js
 var import_react = /* @__PURE__ */ __toESM(require_react());

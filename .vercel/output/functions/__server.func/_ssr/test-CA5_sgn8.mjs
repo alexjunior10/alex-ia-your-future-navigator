@@ -1,7 +1,7 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { g as useNavigate } from "../_libs/@tanstack/react-router+[...].mjs";
-import { D as CircleCheck, L as ArrowLeft, l as Sparkles } from "../_libs/lucide-react.mjs";
+import { V as ArrowLeft, j as CircleCheck, l as Sparkles } from "../_libs/lucide-react.mjs";
 import { i as testDimensions } from "./mock-data-cwiuQowp.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/test-CA5_sgn8.js
 var import_react = /* @__PURE__ */ __toESM(require_react());

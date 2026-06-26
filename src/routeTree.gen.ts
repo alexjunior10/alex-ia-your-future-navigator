@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestRouteImport } from './routes/test'
 import { Route as ResultadosRouteImport } from './routes/resultados'
+import { Route as RecuperarClaveRouteImport } from './routes/recuperar-clave'
 import { Route as PrivacidadRouteImport } from './routes/privacidad'
 import { Route as PadresRouteImport } from './routes/padres'
 import { Route as LoginRouteImport } from './routes/login'
@@ -19,6 +20,7 @@ import { Route as ColegiosRouteImport } from './routes/colegios'
 import { Route as CoachRouteImport } from './routes/coach'
 import { Route as CarrerasRouteImport } from './routes/carreras'
 import { Route as BienvenidaRouteImport } from './routes/bienvenida'
+import { Route as ActualizarClaveRouteImport } from './routes/actualizar-clave'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RegistroPadreRouteImport } from './routes/registro.padre'
 import { Route as RegistroEstudianteRouteImport } from './routes/registro.estudiante'
@@ -32,6 +34,11 @@ const TestRoute = TestRouteImport.update({
 const ResultadosRoute = ResultadosRouteImport.update({
   id: '/resultados',
   path: '/resultados',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecuperarClaveRoute = RecuperarClaveRouteImport.update({
+  id: '/recuperar-clave',
+  path: '/recuperar-clave',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacidadRoute = PrivacidadRouteImport.update({
@@ -74,6 +81,11 @@ const BienvenidaRoute = BienvenidaRouteImport.update({
   path: '/bienvenida',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActualizarClaveRoute = ActualizarClaveRouteImport.update({
+  id: '/actualizar-clave',
+  path: '/actualizar-clave',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -97,6 +109,7 @@ const CarrerasSlugRoute = CarrerasSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/actualizar-clave': typeof ActualizarClaveRoute
   '/bienvenida': typeof BienvenidaRoute
   '/carreras': typeof CarrerasRouteWithChildren
   '/coach': typeof CoachRoute
@@ -105,6 +118,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/padres': typeof PadresRoute
   '/privacidad': typeof PrivacidadRoute
+  '/recuperar-clave': typeof RecuperarClaveRoute
   '/resultados': typeof ResultadosRoute
   '/test': typeof TestRoute
   '/carreras/$slug': typeof CarrerasSlugRoute
@@ -113,6 +127,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/actualizar-clave': typeof ActualizarClaveRoute
   '/bienvenida': typeof BienvenidaRoute
   '/carreras': typeof CarrerasRouteWithChildren
   '/coach': typeof CoachRoute
@@ -121,6 +136,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/padres': typeof PadresRoute
   '/privacidad': typeof PrivacidadRoute
+  '/recuperar-clave': typeof RecuperarClaveRoute
   '/resultados': typeof ResultadosRoute
   '/test': typeof TestRoute
   '/carreras/$slug': typeof CarrerasSlugRoute
@@ -130,6 +146,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/actualizar-clave': typeof ActualizarClaveRoute
   '/bienvenida': typeof BienvenidaRoute
   '/carreras': typeof CarrerasRouteWithChildren
   '/coach': typeof CoachRoute
@@ -138,6 +155,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/padres': typeof PadresRoute
   '/privacidad': typeof PrivacidadRoute
+  '/recuperar-clave': typeof RecuperarClaveRoute
   '/resultados': typeof ResultadosRoute
   '/test': typeof TestRoute
   '/carreras/$slug': typeof CarrerasSlugRoute
@@ -148,6 +166,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/actualizar-clave'
     | '/bienvenida'
     | '/carreras'
     | '/coach'
@@ -156,6 +175,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/padres'
     | '/privacidad'
+    | '/recuperar-clave'
     | '/resultados'
     | '/test'
     | '/carreras/$slug'
@@ -164,6 +184,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/actualizar-clave'
     | '/bienvenida'
     | '/carreras'
     | '/coach'
@@ -172,6 +193,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/padres'
     | '/privacidad'
+    | '/recuperar-clave'
     | '/resultados'
     | '/test'
     | '/carreras/$slug'
@@ -180,6 +202,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/actualizar-clave'
     | '/bienvenida'
     | '/carreras'
     | '/coach'
@@ -188,6 +211,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/padres'
     | '/privacidad'
+    | '/recuperar-clave'
     | '/resultados'
     | '/test'
     | '/carreras/$slug'
@@ -197,6 +221,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActualizarClaveRoute: typeof ActualizarClaveRoute
   BienvenidaRoute: typeof BienvenidaRoute
   CarrerasRoute: typeof CarrerasRouteWithChildren
   CoachRoute: typeof CoachRoute
@@ -205,6 +230,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   PadresRoute: typeof PadresRoute
   PrivacidadRoute: typeof PrivacidadRoute
+  RecuperarClaveRoute: typeof RecuperarClaveRoute
   ResultadosRoute: typeof ResultadosRoute
   TestRoute: typeof TestRoute
   RegistroEstudianteRoute: typeof RegistroEstudianteRoute
@@ -225,6 +251,13 @@ declare module '@tanstack/react-router' {
       path: '/resultados'
       fullPath: '/resultados'
       preLoaderRoute: typeof ResultadosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recuperar-clave': {
+      id: '/recuperar-clave'
+      path: '/recuperar-clave'
+      fullPath: '/recuperar-clave'
+      preLoaderRoute: typeof RecuperarClaveRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacidad': {
@@ -283,6 +316,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BienvenidaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/actualizar-clave': {
+      id: '/actualizar-clave'
+      path: '/actualizar-clave'
+      fullPath: '/actualizar-clave'
+      preLoaderRoute: typeof ActualizarClaveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -328,6 +368,7 @@ const CarrerasRouteWithChildren = CarrerasRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActualizarClaveRoute: ActualizarClaveRoute,
   BienvenidaRoute: BienvenidaRoute,
   CarrerasRoute: CarrerasRouteWithChildren,
   CoachRoute: CoachRoute,
@@ -336,6 +377,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   PadresRoute: PadresRoute,
   PrivacidadRoute: PrivacidadRoute,
+  RecuperarClaveRoute: RecuperarClaveRoute,
   ResultadosRoute: ResultadosRoute,
   TestRoute: TestRoute,
   RegistroEstudianteRoute: RegistroEstudianteRoute,

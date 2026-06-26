@@ -1,7 +1,8 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAuth } from "../hooks/use-auth";
-import { ArrowRight, ArrowLeft, Heart, ShieldCheck } from "lucide-react";
+import { ArrowRight, ArrowLeft, Heart, ShieldCheck, Loader2, MailCheck } from "lucide-react";
+import { supabase } from "../integrations/supabase/client";
 
 export const Route = createFileRoute("/registro/padre")({
   head: () => ({ meta: [{ title: "Registro Padres — Alex IA" }] }),
@@ -12,6 +13,9 @@ function RegistroPadre() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   // Form state
   const [studentCode, setStudentCode] = useState("");
@@ -24,10 +28,32 @@ function RegistroPadre() {
     if (e) e.preventDefault();
     if (step < 3) {
       setStep(step + 1);
-    } else {
-      // Finish
-      login("parent");
-      navigate({ to: "/padres" });
+    }
+  };
+
+  const handleRegister = async (goalSelected: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const { error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            role: "parent",
+            name,
+            studentCode,
+            goal: goalSelected
+          }
+        }
+      });
+
+      if (signUpError) throw signUpError;
+      setIsSuccess(true);
+    } catch (err: any) {
+      setError(err.message || "Error al registrar la cuenta.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -38,6 +64,27 @@ function RegistroPadre() {
       navigate({ to: "/login" });
     }
   };
+
+  if (isSuccess) {
+    return (
+      <div className="mx-auto max-w-lg px-4 py-20 text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="mx-auto grid h-24 w-24 place-items-center rounded-full bg-secondary/10 text-secondary mb-8">
+          <MailCheck className="h-12 w-12" />
+        </div>
+        <h1 className="text-3xl font-extrabold mb-4">¡Ya casi estamos! 📩</h1>
+        <p className="text-lg text-muted-foreground mb-8">
+          Hemos enviado un correo a <span className="font-semibold text-foreground">{email}</span>. 
+          Haz clic en el enlace que encontrarás allí para verificar tu cuenta y poder ingresar al Portal para Padres.
+        </p>
+        <button
+          onClick={() => navigate({ to: "/login" })}
+          className="inline-flex items-center gap-2 rounded-xl bg-secondary px-6 py-3 font-bold text-secondary-foreground shadow-md transition-transform hover:scale-105"
+        >
+          Volver al Login <ArrowRight className="h-5 w-5" />
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-xl px-4 py-12 sm:px-6">
@@ -109,11 +156,12 @@ function RegistroPadre() {
               ].map(opt => (
                 <button
                   key={opt}
-                  onClick={() => { setGoal(opt); handleNext(); }}
-                  className="flex items-center gap-4 rounded-xl border border-border bg-background p-4 text-left font-medium text-foreground transition-all hover:border-secondary hover:shadow-md hover:bg-secondary/5"
+                  disabled={isLoading}
+                  onClick={() => { setGoal(opt); handleRegister(opt); }}
+                  className="flex items-center gap-4 rounded-xl border border-border bg-background p-4 text-left font-medium text-foreground transition-all hover:border-secondary hover:shadow-md hover:bg-secondary/5 disabled:opacity-70 disabled:hover:shadow-none"
                 >
                   <div className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-secondary/10 text-secondary">
-                    <ShieldCheck className="h-4 w-4" />
+                    {isLoading && goal === opt ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />}
                   </div>
                   <span className="text-sm">{opt}</span>
                 </button>
@@ -122,6 +170,11 @@ function RegistroPadre() {
             <p className="mt-6 text-xs text-muted-foreground opacity-70">
               Esto nos ayudará a adaptar los consejos que te mostraremos en el portal.
             </p>
+            {error && (
+              <div className="mt-4 rounded-xl bg-destructive/10 p-3 text-sm font-semibold text-destructive animate-in fade-in">
+                {error}
+              </div>
+            )}
           </div>
         )}
 

@@ -1,6 +1,6 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { L as ArrowLeft, M as Briefcase, S as DollarSign, s as TrendingUp, w as Clock, x as GraduationCap } from "../_libs/lucide-react.mjs";
+import { E as DollarSign, I as Briefcase, O as Clock, T as GraduationCap, V as ArrowLeft, s as TrendingUp } from "../_libs/lucide-react.mjs";
 import { t as Route } from "./carreras._slug-BR0oIb4b.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/carreras._slug-DL7o-swG.js
 var import_jsx_runtime = require_jsx_runtime();

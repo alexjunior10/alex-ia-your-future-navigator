@@ -1,7 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAuth } from "../hooks/use-auth";
-import { ArrowRight, ArrowLeft, Sparkles, CheckCircle2, UserCircle2 } from "lucide-react";
+import { ArrowRight, ArrowLeft, Sparkles, CheckCircle2, UserCircle2, Loader2, MailCheck } from "lucide-react";
+import { supabase } from "../integrations/supabase/client";
 
 export const Route = createFileRoute("/registro/estudiante")({
   head: () => ({ meta: [{ title: "Registro Estudiante — Alex IA" }] }),
@@ -13,6 +14,9 @@ function RegistroEstudiante() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [transitioning, setTransitioning] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   // Form state
   const [avatar, setAvatar] = useState("");
@@ -30,10 +34,37 @@ function RegistroEstudiante() {
         setTransitioning(false);
         setStep(step + 1);
       }, 600);
-    } else {
-      // Finish
-      login("student");
-      navigate({ to: "/bienvenida" });
+    }
+  };
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const { error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            role: "student",
+            name,
+            avatar,
+            school,
+            grade,
+            icebreaker
+          }
+        }
+      });
+
+      if (signUpError) throw signUpError;
+      
+      setIsSuccess(true);
+    } catch (err: any) {
+      setError(err.message || "Ocurrió un error al registrar tu cuenta.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -48,6 +79,27 @@ function RegistroEstudiante() {
   const avatars = ["🦊", "🐼", "🦁", "🐙", "🦖", "🦄", "🐶", "🐱", "🐰"];
 
   const stepTitles = ["Tu Avatar", "Tus Datos", "Rompehielo", "Seguridad"];
+
+  if (isSuccess) {
+    return (
+      <div className="mx-auto max-w-lg px-4 py-20 text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="mx-auto grid h-24 w-24 place-items-center rounded-full bg-primary/10 text-primary mb-8">
+          <MailCheck className="h-12 w-12" />
+        </div>
+        <h1 className="text-3xl font-extrabold mb-4">¡Registro exitoso! 🎉</h1>
+        <p className="text-lg text-muted-foreground mb-8">
+          Hemos enviado un correo a <span className="font-semibold text-foreground">{email}</span>. 
+          Por favor, revisa tu bandeja de entrada (y la carpeta de spam) y haz clic en el enlace para verificar tu cuenta antes de iniciar sesión.
+        </p>
+        <button
+          onClick={() => navigate({ to: "/login" })}
+          className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 font-bold text-primary-foreground shadow-md transition-transform hover:scale-105"
+        >
+          Ir al Login <ArrowRight className="h-5 w-5" />
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6">
@@ -167,7 +219,7 @@ function RegistroEstudiante() {
         )}
 
         {step === 4 && (
-          <form onSubmit={(e) => { e.preventDefault(); handleNext(); }} className="space-y-5 text-center">
+          <form onSubmit={handleRegister} className="space-y-5 text-center">
             <div className="grid h-16 w-16 place-items-center rounded-full bg-accent/20 text-accent mx-auto mb-6">
               <UserCircle2 className="h-8 w-8" />
             </div>
@@ -179,8 +231,15 @@ function RegistroEstudiante() {
               <input type="password" required value={password} onChange={e => setPassword(e.target.value)} placeholder="Mínimo 6 caracteres" minLength={6} className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2" />
             </div>
 
-            <button type="submit" className="mt-8 w-full flex justify-center items-center gap-2 rounded-xl bg-gradient-to-r from-primary to-secondary px-4 py-4 font-bold text-primary-foreground shadow-lg transition-transform hover:scale-[1.02]">
-              Comenzar mi viaje vocacional <CheckCircle2 className="h-5 w-5" />
+            {error && (
+              <div className="rounded-xl bg-destructive/10 p-3 text-sm font-semibold text-destructive text-left animate-in fade-in">
+                {error}
+              </div>
+            )}
+
+            <button type="submit" disabled={isLoading} className="mt-8 w-full flex justify-center items-center gap-2 rounded-xl bg-gradient-to-r from-primary to-secondary px-4 py-4 font-bold text-primary-foreground shadow-lg transition-transform hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100">
+              {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Comenzar mi viaje vocacional"}
+              {!isLoading && <CheckCircle2 className="h-5 w-5" />}
             </button>
           </form>
         )}
