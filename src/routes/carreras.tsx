@@ -1,16 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Search, Briefcase, Clock, TrendingUp } from "lucide-react";
-import { careers } from "../lib/mock-data";
+import { supabase } from "../integrations/supabase/client";
 
 export const Route = createFileRoute("/carreras")({
   head: () => ({ meta: [{ title: "Explorar Carreras — Alex IA" }, { name: "description", content: "Explora carreras universitarias, salarios, demanda y mallas curriculares." }] }),
+  loader: async () => {
+    const { data, error } = await supabase.from('careers').select('*').order('name');
+    if (error) throw error;
+    return data;
+  },
   component: CareersPage,
 });
 
 const areas = ["Todas", "Ingeniería", "Salud", "Negocios", "Arte", "Ciencias Sociales", "Tecnología"];
 
 function CareersPage() {
+  const careers = Route.useLoaderData() as any[];
   const [area, setArea] = useState("Todas");
   const [q, setQ] = useState("");
   const filtered = careers.filter(

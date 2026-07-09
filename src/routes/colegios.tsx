@@ -1,5 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Users, BookOpen, BarChart3, CheckCircle2 } from "lucide-react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Users, BookOpen, BarChart3, CheckCircle2, LogOut } from "lucide-react";
+import { useEffect } from "react";
+import { useAuth } from "../hooks/use-auth";
 
 export const Route = createFileRoute("/colegios")({
   head: () => ({ meta: [{ title: "Para Colegios — Alex IA" }, { name: "description", content: "Orientación vocacional escalable para todos tus estudiantes." }] }),
@@ -7,6 +9,15 @@ export const Route = createFileRoute("/colegios")({
 });
 
 function ColegiosPage() {
+  const { role, logout } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (role && role !== "school") {
+      navigate({ to: "/bienvenida", replace: true });
+    }
+  }, [role, navigate]);
+
   const grades = [
     { grade: "3ro Secundaria", students: 124, progress: 78 },
     { grade: "4to Secundaria", students: 118, progress: 62 },
@@ -14,11 +25,16 @@ function ColegiosPage() {
   ];
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      <div className="rounded-3xl bg-gradient-to-br from-primary to-secondary p-10 text-primary-foreground shadow-xl">
-        <h1 className="text-3xl font-extrabold sm:text-4xl">Orientación vocacional escalable</h1>
-        <p className="mt-3 max-w-2xl text-primary-foreground/90">
-          Acompaña a cada estudiante con datos, reportes y herramientas modernas. Ideal para colegios que quieren elevar su propuesta de tutoría.
-        </p>
+      <div className="flex flex-col sm:flex-row gap-4 justify-between items-start mb-6">
+        <div className="rounded-3xl bg-gradient-to-br from-primary to-secondary p-10 text-primary-foreground shadow-xl flex-1 w-full">
+          <h1 className="text-3xl font-extrabold sm:text-4xl">Orientación vocacional escalable</h1>
+          <p className="mt-3 max-w-2xl text-primary-foreground/90">
+            Acompaña a cada estudiante con datos, reportes y herramientas modernas. Ideal para colegios que quieren elevar su propuesta de tutoría.
+          </p>
+        </div>
+        <button onClick={logout} className="shrink-0 flex items-center gap-2 rounded-xl border-2 border-border bg-background px-5 py-3 font-semibold text-foreground hover:border-destructive hover:text-destructive transition-colors">
+          <LogOut className="h-5 w-5" /> Cerrar Sesión
+        </button>
       </div>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-3">

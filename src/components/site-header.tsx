@@ -2,13 +2,15 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { Sparkles, LogOut, UserCircle, X, CheckCircle2 } from "lucide-react";
 import { useAuth } from "../hooks/use-auth";
 
+import { Role } from "../hooks/use-auth";
+
 const allItems = [
-  { to: "/test", label: "Test Vocacional", isProtected: true },
-  { to: "/carreras", label: "Carreras", isProtected: false },
-  { to: "/coach", label: "Coach IA", isProtected: false },
-  { to: "/examen", label: "Simulador", isProtected: true },
-  { to: "/padres", label: "Para Padres", isProtected: true },
-  { to: "/colegios", label: "Para Colegios", isProtected: true },
+  { to: "/test", label: "Test Vocacional", isProtected: true, roles: ["student"] as Role[] },
+  { to: "/carreras", label: "Carreras", isProtected: false, roles: ["student", "parent", "school"] as Role[] },
+  { to: "/coach", label: "Coach IA", isProtected: false, roles: ["student", "parent", "school"] as Role[] },
+  { to: "/examen", label: "Simulador", isProtected: true, roles: ["student"] as Role[] },
+  { to: "/padres", label: "Para Padres", isProtected: true, roles: ["parent"] as Role[] },
+  { to: "/colegios", label: "Para Colegios", isProtected: true, roles: ["school"] as Role[] },
 ];
 
 export function SiteHeader() {
@@ -35,7 +37,7 @@ export function SiteHeader() {
         </Link>
         
         <nav className="hidden items-center gap-1 lg:flex">
-          {allItems.map((item) => (
+          {allItems.filter(item => !role || item.roles.includes(role)).map((item) => (
             <Link
               key={item.to}
               to={item.to}

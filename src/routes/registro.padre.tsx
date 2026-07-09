@@ -48,7 +48,12 @@ function RegistroPadre() {
         }
       });
 
-      if (signUpError) throw signUpError;
+      if (signUpError) {
+        if (signUpError.message.includes("already registered")) {
+          throw new Error("Este correo ya está registrado. Por favor, dirígete al Login para iniciar sesión.");
+        }
+        throw signUpError;
+      }
       setIsSuccess(true);
     } catch (err: any) {
       setError(err.message || "Error al registrar la cuenta.");

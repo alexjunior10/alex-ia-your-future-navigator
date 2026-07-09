@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Briefcase, Clock, TrendingUp, GraduationCap, DollarSign } from "lucide-react";
-import { careers, type Career } from "../lib/mock-data";
+import { supabase } from "../integrations/supabase/client";
 
 export const Route = createFileRoute("/carreras/$slug")({
   component: CareerDetail,
@@ -10,10 +10,14 @@ export const Route = createFileRoute("/carreras/$slug")({
       <Link to="/carreras" className="mt-4 inline-block text-primary hover:underline">← Volver a carreras</Link>
     </div>
   ),
-  loader: ({ params }): Career => {
-    const c = careers.find((x) => x.slug === params.slug);
-    if (!c) throw notFound();
-    return c;
+  loader: async ({ params }) => {
+    const { data: career, error } = await supabase
+      .from('careers')
+      .select('*, branches:career_branches(*)')
+      .eq('slug', params.slug)
+      .single();
+    if (error || !career) throw notFound();
+    return career;
   },
   head: ({ loaderData }) => ({
     meta: loaderData
@@ -23,7 +27,7 @@ export const Route = createFileRoute("/carreras/$slug")({
 });
 
 function CareerDetail() {
-  const c = Route.useLoaderData() as Career;
+  const c = Route.useLoaderData() as any;
   return (
     <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
       <Link to="/carreras" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
@@ -103,7 +107,7 @@ function CareerDetail() {
         </div>
       </div>
 
-      <p className="mt-8 text-xs text-muted-foreground">Datos ilustrativos para fines del prototipo.</p>
+      {/* Removemos la nota ilustrativa ya que la data viene de DB real */}
     </div>
   );
 }

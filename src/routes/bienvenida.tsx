@@ -1,5 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Brain, GraduationCap, Sparkles, Target, ArrowRight } from "lucide-react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Brain, GraduationCap, Sparkles, Target, ArrowRight, LogOut } from "lucide-react";
+import { useAuth } from "../hooks/use-auth";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/bienvenida")({
   head: () => ({ meta: [{ title: "Bienvenido — Alex IA" }] }),
@@ -7,9 +9,23 @@ export const Route = createFileRoute("/bienvenida")({
 });
 
 function BienvenidaPage() {
+  const { role, logout } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (role && role !== "student") {
+      if (role === "parent") navigate({ to: "/padres", replace: true });
+      if (role === "school") navigate({ to: "/colegios", replace: true });
+    }
+  }, [role, navigate]);
+
   return (
-    <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-      <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 relative">
+      <button onClick={logout} className="absolute top-4 right-4 sm:top-16 sm:right-6 flex items-center gap-2 rounded-xl bg-destructive/10 text-destructive px-4 py-2 text-sm font-semibold hover:bg-destructive hover:text-destructive-foreground transition-colors">
+        <LogOut className="h-4 w-4" /> Salir
+      </button>
+
+      <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-500 pt-8 sm:pt-0">
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl mb-4">
           👋 Hola Alex.<br/>
           <span className="text-muted-foreground font-semibold text-3xl sm:text-4xl">Qué bueno tenerte aquí.</span>

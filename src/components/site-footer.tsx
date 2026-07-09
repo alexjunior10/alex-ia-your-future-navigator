@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram, Linkedin, Youtube, Sparkles, ArrowRight } from "lucide-react";
-import { useAuth } from "../hooks/use-auth";
+import { useAuth, Role } from "../hooks/use-auth";
 
 export function SiteFooter() {
   const { role, setShowAuthModal } = useAuth();
@@ -11,6 +11,12 @@ export function SiteFooter() {
       setShowAuthModal(true);
     }
   };
+
+  const isVisible = (targetRoles: Role[]) => {
+    if (!role) return true;
+    return targetRoles.includes(role);
+  };
+
   return (
     <footer className="mt-24 border-t border-border/60 bg-background relative overflow-hidden">
       {/* Motivador - Top Banner */}
@@ -49,18 +55,18 @@ export function SiteFooter() {
           <div>
             <h4 className="text-sm font-bold text-foreground tracking-wider uppercase mb-6">Producto</h4>
             <ul className="space-y-4 text-sm font-medium text-muted-foreground">
-              <li><Link to="/test" onClick={(e) => handleLinkClick(e, true)} className="hover:text-primary transition-colors">Test Vocacional</Link></li>
+              {isVisible(["student"]) && <li><Link to="/test" onClick={(e) => handleLinkClick(e, true)} className="hover:text-primary transition-colors">Test Vocacional</Link></li>}
               <li><Link to="/carreras" onClick={(e) => handleLinkClick(e, false)} className="hover:text-primary transition-colors">Carreras</Link></li>
               <li><Link to="/coach" onClick={(e) => handleLinkClick(e, false)} className="hover:text-primary transition-colors">Coach IA</Link></li>
-              <li><Link to="/examen" onClick={(e) => handleLinkClick(e, true)} className="hover:text-primary transition-colors">Simulador</Link></li>
+              {isVisible(["student"]) && <li><Link to="/examen" onClick={(e) => handleLinkClick(e, true)} className="hover:text-primary transition-colors">Simulador</Link></li>}
             </ul>
           </div>
           <div>
             <h4 className="text-sm font-bold text-foreground tracking-wider uppercase mb-6">Compañía</h4>
             <ul className="space-y-4 text-sm font-medium text-muted-foreground">
               <li><Link to="/" className="hover:text-primary transition-colors">Nosotros</Link></li>
-              <li><Link to="/padres" onClick={(e) => handleLinkClick(e, true)} className="hover:text-primary transition-colors">Para Padres</Link></li>
-              <li><Link to="/colegios" onClick={(e) => handleLinkClick(e, true)} className="hover:text-primary transition-colors">Para Colegios</Link></li>
+              {isVisible(["parent"]) && <li><Link to="/padres" onClick={(e) => handleLinkClick(e, true)} className="hover:text-primary transition-colors">Para Padres</Link></li>}
+              {isVisible(["school"]) && <li><Link to="/colegios" onClick={(e) => handleLinkClick(e, true)} className="hover:text-primary transition-colors">Para Colegios</Link></li>}
               <li><Link to="/" className="hover:text-primary transition-colors">Privacidad</Link></li>
             </ul>
           </div>

@@ -1,24 +1,68 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { admissionExams, careers } from "../lib/mock-data";
-import { CheckCircle2, XCircle, Trophy, Target, HeartHandshake, BookOpen, Building2, BrainCircuit, Activity } from "lucide-react";
+import { useState, useEffect } from "react";
+import { CheckCircle2, XCircle, Trophy, Target, HeartHandshake, BookOpen, Building2, BrainCircuit, Activity, Clock } from "lucide-react";
+import { supabase } from "../integrations/supabase/client";
 
 export const Route = createFileRoute("/examen")({
   head: () => ({ meta: [{ title: "Examen Tipo Admisión — Alex IA" }] }),
+  loader: async () => {
+    const [careersRes, examsRes] = await Promise.all([
+      supabase.from('careers').select('slug, name, universities').order('name'),
+      supabase.from('admission_exams').select('*')
+    ]);
+    
+    if (careersRes.error) throw careersRes.error;
+    if (examsRes.error) throw examsRes.error;
+    
+    const examsMap = new Map<string, any[]>();
+    examsRes.data.forEach((row: any) => {
+      if (!examsMap.has(row.career_slug)) {
+        examsMap.set(row.career_slug, []);
+      }
+      examsMap.get(row.career_slug)!.push({
+        q: row.q,
+        opts: row.opts,
+        answer: row.answer,
+        area: row.area
+      });
+    });
+    
+    return {
+      careers: careersRes.data,
+      admissionExams: Object.fromEntries(examsMap)
+    };
+  },
   component: ExamenPage,
 });
 
 function ExamenPage() {
+  const { careers, admissionExams } = Route.useLoaderData() as any;
   const [started, setStarted] = useState(false);
   const [qIdx, setQIdx] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [finished, setFinished] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(600); // 10 min en segundos
+
+  useEffect(() => {
+    if (started && !finished && timeLeft > 0) {
+      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+      return () => clearTimeout(timer);
+    } else if (timeLeft === 0 && started && !finished) {
+      setFinished(true); // Terminar auto cuando llega a 0
+    }
+  }, [timeLeft, started, finished]);
+
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m}:${s.toString().padStart(2, '0')}`;
+  };
 
   const [selectedCareer, setSelectedCareer] = useState(careers[0].slug);
   const [selectedUni, setSelectedUni] = useState(careers[0].universities[0]);
 
-  const targetCareer = careers.find(c => c.slug === selectedCareer) || careers[0];
-  const examBank = admissionExams[targetCareer.slug] || admissionExams["ingenieria"];
+  const targetCareer = careers.find((c: any) => c.slug === selectedCareer) || careers[0];
+  const examBank = admissionExams[targetCareer.slug] || Object.values(admissionExams)[0] || [];
 
   const currentQ = examBank[qIdx];
 
@@ -94,14 +138,14 @@ function ExamenPage() {
           <div className="space-y-5 mb-8">
             <div>
               <label className="mb-2 block text-sm font-medium flex items-center gap-2"><BookOpen className="h-4 w-4" /> Carrera a postular</label>
-              <select value={selectedCareer} onChange={e => { setSelectedCareer(e.target.value); setSelectedUni(careers.find(c => c.slug === e.target.value)?.universities[0] || ""); }} className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2">
-                {careers.map(c => <option key={c.slug} value={c.slug}>{c.name}</option>)}
+              <select value={selectedCareer} onChange={e => { setSelectedCareer(e.target.value); setSelectedUni(careers.find((c: any) => c.slug === e.target.value)?.universities[0] || ""); }} className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2">
+                {careers.map((c: any) => <option key={c.slug} value={c.slug}>{c.name}</option>)}
               </select>
             </div>
             <div>
               <label className="mb-2 block text-sm font-medium flex items-center gap-2"><Building2 className="h-4 w-4" /> Universidad objetivo</label>
               <select value={selectedUni} onChange={e => setSelectedUni(e.target.value)} className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2">
-                {targetCareer.universities.map(u => <option key={u} value={u}>{u}</option>)}
+                {targetCareer.universities.map((u: string) => <option key={u} value={u}>{u}</option>)}
               </select>
             </div>
           </div>
@@ -141,8 +185,8 @@ function ExamenPage() {
       colorClass = "text-secondary";
     } else {
       FeedbackIcon = HeartHandshake;
-      feedbackTitle = "Punto de partida 🚀";
-      feedbackDesc = "Este examen mide conocimiento actual, no tu potencial. Tienes total afinidad con esta carrera, solo necesitas un plan de estudio estructurado desde cero. ¡Todos empezamos en algún punto!";
+      feedbackTitle = "Necesitas prepararte más 🚀";
+      feedbackDesc = "Si estás seguro de querer esta carrera, debes prepararte más y estudiar áreas clave. También puedes volver a realizar el Test Vocacional para estar 100% seguro de que esta ruta se alinea contigo y descubrir en qué puedes mejorar.";
       colorClass = "text-accent";
     }
 
@@ -189,7 +233,12 @@ function ExamenPage() {
     <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6">
       <div className="mb-8 flex items-center justify-between">
         <span className="text-sm font-bold text-muted-foreground">Pregunta {qIdx + 1} de {examBank.length}</span>
-        <span className="rounded-full bg-accent/20 px-3 py-1 text-xs font-bold text-accent-foreground">Área: {currentQ.area}</span>
+        <div className="flex items-center gap-4">
+          <div className={`flex items-center gap-1.5 font-mono text-lg font-bold ${timeLeft < 60 ? 'text-destructive animate-pulse' : 'text-primary'}`}>
+            <Clock className="h-4 w-4" /> {formatTime(timeLeft)}
+          </div>
+          <span className="hidden sm:inline-block rounded-full bg-accent/20 px-3 py-1 text-xs font-bold text-accent-foreground">Área: {currentQ.area}</span>
+        </div>
       </div>
 
       <div className="rounded-3xl border border-border bg-card p-6 sm:p-10 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-300">

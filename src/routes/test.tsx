@@ -1,33 +1,85 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { testDimensions } from "../lib/mock-data";
-import { ArrowRight, ArrowLeft, Sparkles, CheckCircle2 } from "lucide-react";
+import { mockAdnProfile } from "../lib/mock-data";
+import { ArrowRight, ArrowLeft, Sparkles, CheckCircle2, Loader2 } from "lucide-react";
+import { supabase } from "../integrations/supabase/client";
+import { useAuth } from "../hooks/use-auth";
 
 export const Route = createFileRoute("/test")({
   head: () => ({ meta: [{ title: "Test Vocacional — Alex IA" }] }),
+  loader: async () => {
+    const { data, error } = await supabase.from('test_questions').select('*');
+    if (error) throw error;
+    
+    const dimensionsMap = new Map<string, any>();
+    // Ordenamos para mantener el orden en el que se insertaron o un orden lógico.
+    // Lo ideal sería un campo "order", por ahora respetamos el orden en que vienen agrupando.
+    data.forEach((row: any) => {
+      if (!dimensionsMap.has(row.dimension_id)) {
+        dimensionsMap.set(row.dimension_id, {
+          id: row.dimension_id,
+          title: row.dimension_title,
+          subtitle: row.dimension_subtitle,
+          type: row.dimension_type,
+          questions: []
+        });
+      }
+      
+      const dim = dimensionsMap.get(row.dimension_id);
+      if (row.dimension_type === 'slider') {
+        dim.questions.push({ q: row.q, left: row.left_label, right: row.right_label });
+      } else if (row.dimension_type === 'scenario') {
+        dim.questions.push({ q: row.q, scenario: row.scenario, options: row.opts });
+      } else {
+        dim.questions.push({ q: row.q, opts: row.opts });
+      }
+    });
+    
+    return Array.from(dimensionsMap.values());
+  },
   component: TestPage,
 });
 
 function TestPage() {
   const navigate = useNavigate();
+  const testDimensions = Route.useLoaderData() as any[];
+  const { user } = useAuth();
   const [dimIdx, setDimIdx] = useState(0);
   const [qIdx, setQIdx] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
   const [sliderVal, setSliderVal] = useState(50);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   const dim = testDimensions[dimIdx];
 
-  const handleNext = (opt?: string) => {
-    if (opt) {
-      setSelectedOption(opt);
-      setTimeout(() => proceedToNext(), 400); // 400ms for check animation
-    } else {
-      proceedToNext();
+  const handleNext = async (opt?: string) => {
+    const finalOpt = opt !== undefined ? opt : sliderVal.toString();
+    setSelectedOption(opt || null);
+    setIsSaving(true);
+
+    try {
+      if (user) {
+        await supabase.from('test_answers').insert({
+          auth_user_id: user.id,
+          dimension_id: dim.id,
+          question_index: qIdx,
+          answer_value: finalOpt
+        });
+      }
+    } catch (e) {
+      console.error("Error al guardar respuesta:", e);
+    } finally {
+      setIsSaving(false);
+      if (opt !== undefined) {
+        setTimeout(() => proceedToNext(), 400); // 400ms for check animation
+      } else {
+        proceedToNext();
+      }
     }
   };
 
-  const proceedToNext = () => {
+  const proceedToNext = async () => {
     setSelectedOption(null);
     if (qIdx + 1 < dim.questions.length) {
       setQIdx(qIdx + 1);
@@ -42,7 +94,20 @@ function TestPage() {
           setSliderVal(50);
         }, 2000); // Transition screen duration
       } else {
-        navigate({ to: "/resultados" });
+        setIsSaving(true);
+        try {
+          if (user) {
+            await supabase.from('test_results').insert({
+              auth_user_id: user.id,
+              result_data: mockAdnProfile
+            });
+          }
+        } catch (e) {
+          console.error("Error al guardar resultado:", e);
+        } finally {
+          setIsSaving(false);
+          navigate({ to: "/resultados" });
+        }
       }
     }
   };
@@ -108,8 +173,9 @@ function TestPage() {
                 return (
                   <button
                     key={opt}
+                    disabled={isSaving}
                     onClick={() => handleNext(opt)}
-                    className={`group relative flex items-center gap-3 rounded-2xl border p-4 text-left font-medium transition-all duration-300
+                    className={`group relative flex items-center gap-3 rounded-2xl border p-4 text-left font-medium transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed
                       ${isSelected 
                         ? "border-primary bg-primary/5 text-primary scale-[1.02] shadow-md" 
                         : "border-border bg-background text-foreground hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:scale-[1.01]"
@@ -136,8 +202,9 @@ function TestPage() {
                 return (
                   <button
                     key={opt}
+                    disabled={isSaving}
                     onClick={() => handleNext(opt)}
-                    className={`group flex items-center gap-4 rounded-2xl border p-4 text-left text-sm font-medium transition-all duration-300
+                    className={`group flex items-center gap-4 rounded-2xl border p-4 text-left text-sm font-medium transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed
                       ${isSelected
                         ? "border-secondary bg-secondary/5 text-secondary scale-[1.02] shadow-md"
                         : "border-border bg-background text-foreground hover:bg-muted hover:border-secondary/30 hover:shadow-lg hover:scale-[1.01]"
@@ -171,10 +238,11 @@ function TestPage() {
                 <span>{q.right}</span>
               </div>
               <button
+                disabled={isSaving}
                 onClick={() => handleNext()}
-                className="mt-10 w-full flex justify-center items-center gap-2 rounded-full bg-primary px-6 py-4 text-sm font-bold text-primary-foreground shadow-lg transition-transform hover:scale-[1.03] hover:bg-primary/90"
+                className="mt-10 w-full flex justify-center items-center gap-2 rounded-full bg-primary px-6 py-4 text-sm font-bold text-primary-foreground shadow-lg transition-transform hover:scale-[1.03] hover:bg-primary/90 disabled:opacity-70 disabled:hover:scale-100"
               >
-                Confirmar <CheckCircle2 className="h-5 w-5" />
+                {isSaving ? <Loader2 className="h-5 w-5 animate-spin" /> : <>Confirmar <CheckCircle2 className="h-5 w-5" /></>}
               </button>
             </div>
           );

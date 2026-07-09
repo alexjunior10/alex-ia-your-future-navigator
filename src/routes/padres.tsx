@@ -1,5 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Heart, MessageCircle, Calendar, Lightbulb } from "lucide-react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Heart, MessageCircle, Calendar, Lightbulb, LogOut } from "lucide-react";
+import { useEffect } from "react";
+import { useAuth } from "../hooks/use-auth";
 
 export const Route = createFileRoute("/padres")({
   head: () => ({ meta: [{ title: "Portal para Padres — Alex IA" }, { name: "description", content: "Acompaña el futuro vocacional de tu hijo con Alex IA." }] }),
@@ -7,6 +9,15 @@ export const Route = createFileRoute("/padres")({
 });
 
 function PadresPage() {
+  const { role, logout } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (role && role !== "parent") {
+      navigate({ to: "/bienvenida", replace: true });
+    }
+  }, [role, navigate]);
+
   const tips = [
     { icon: Heart, title: "No presiones", text: "Acompaña sin imponer carreras o expectativas propias." },
     { icon: Lightbulb, title: "Explora extracurriculares", text: "Talleres y voluntariados ayudan a descubrir intereses reales." },
@@ -20,11 +31,16 @@ function PadresPage() {
   ];
   return (
     <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
-      <div className="rounded-3xl bg-gradient-to-br from-secondary/30 to-primary/20 p-10">
-        <h1 className="text-3xl font-extrabold sm:text-4xl">Acompaña el futuro de tu hijo</h1>
-        <p className="mt-3 max-w-2xl text-muted-foreground">
-          Conoce el perfil vocacional de tu hijo, sus fortalezas y áreas para acompañar mejor.
-        </p>
+      <div className="flex flex-col sm:flex-row gap-4 justify-between items-start mb-6">
+        <div className="rounded-3xl bg-gradient-to-br from-secondary/30 to-primary/20 p-10 flex-1 w-full">
+          <h1 className="text-3xl font-extrabold sm:text-4xl">Acompaña el futuro de tu hijo</h1>
+          <p className="mt-3 max-w-2xl text-muted-foreground">
+            Conoce el perfil vocacional de tu hijo, sus fortalezas y áreas para acompañar mejor.
+          </p>
+        </div>
+        <button onClick={logout} className="shrink-0 flex items-center gap-2 rounded-xl bg-destructive/10 text-destructive px-5 py-3 font-semibold hover:bg-destructive hover:text-destructive-foreground transition-colors">
+          <LogOut className="h-5 w-5" /> Cerrar Sesión
+        </button>
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
