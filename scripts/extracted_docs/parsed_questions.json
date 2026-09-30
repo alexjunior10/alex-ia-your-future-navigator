@@ -1,0 +1,529 @@
+[
+  {
+    "id": "Q01",
+    "type": "Elección forzada",
+    "dimension": "Intereses",
+    "prompt": "Imagínate que tienes una tarde libre y puedes elegir solo una actividad para un proyecto personal\\. ¿Cuál te daría más ganas de empezar?",
+    "options": [
+      "- A\\) Armar, reparar o construir algo que funcione",
+      "- B\\) Investigar por qué ocurre algo que no entiendes",
+      "- C\\) Crear una historia, diseño, video o pieza visual",
+      "- D\\) Ayudar a alguien a resolver un problema que tiene"
+    ],
+    "rationale": "Primaria: INT\\_R/INT\\_I/INT\\_A/INT\\_S\\. Cada opción representa una fuente de atracción distinta sin mencionar carreras\\."
+  },
+  {
+    "id": "Q02",
+    "type": "Elección forzada",
+    "dimension": "Intereses",
+    "prompt": "En un trabajo grupal les dicen: 'Pueden convertir esta idea en cualquier proyecto'\\. ¿Qué parte te llamaría más la atención?",
+    "options": [
+      "- A\\) Pensar cómo hacerlo realidad y conseguir que funcione",
+      "- B\\) Investigar el problema y encontrar información útil",
+      "- C\\) Diseñar cómo se verá y cómo lo vivirá la gente",
+      "- D\\) Organizar al equipo y conseguir que la idea avance"
+    ],
+    "rationale": "Primaria: INT\\_A, INT\\_E, INT\\_I; secundaria INT\\_R\\. Revisar que no confunda iniciativa con interés emprendedor\\."
+  },
+  {
+    "id": "Q03",
+    "type": "Escenario",
+    "dimension": "Intereses",
+    "prompt": "Encuentras un aparato que dejó de funcionar y nadie sabe exactamente qué pasó\\. ¿Qué te sale más natural hacer primero?",
+    "options": [
+      "- A\\) Abrirlo o probar partes para encontrar el problema",
+      "- B\\) Buscar información sobre cómo funciona",
+      "- C\\) Imaginar una forma distinta de usarlo",
+      "- D\\) Preguntar a alguien cómo le afectó el problema y qué necesita"
+    ],
+    "rationale": "Diferencia acción concreta, curiosidad causal, creatividad e interés humano\\."
+  },
+  {
+    "id": "Q04",
+    "type": "Elección forzada",
+    "dimension": "Intereses",
+    "prompt": "Si pudieras participar durante un mes en uno de estos proyectos, ¿cuál escogerías?",
+    "options": [
+      "- A\\) Construir un prototipo con materiales",
+      "- B\\) Hacer una investigación y comprobar una hipótesis",
+      "- C\\) Crear una experiencia visual o audiovisual",
+      "- D\\) Diseñar una campaña para convencer a otras personas de participar"
+    ],
+    "rationale": "Primaria: INT\\_R, INT\\_I, INT\\_A, INT\\_E\\."
+  },
+  {
+    "id": "Q05",
+    "type": "Situación",
+    "dimension": "Intereses",
+    "prompt": "Una profesora te dice que puedes mejorar un problema de tu colegio\\. ¿Qué tipo de problema te interesaría más resolver?",
+    "options": [
+      "- A\\) Algo que requiere organizar información y mejorar un proceso",
+      "- B\\) Algo que afecta a estudiantes y necesita acompañamiento",
+      "- C\\) Algo que requiere una solución nueva y diferente",
+      "- D\\) Algo que necesita convencer a varias personas para que cambien"
+    ],
+    "rationale": "Principalmente intereses INT\\_C, INT\\_S, INT\\_E; creatividad como secundaria\\."
+  },
+  {
+    "id": "Q06",
+    "type": "Preferencia",
+    "dimension": "Intereses",
+    "prompt": "¿Cuál de estos planes te parecería más entretenido, aunque no hubiera una nota de por medio?",
+    "options": [
+      "- A\\) Ordenar y clasificar información hasta encontrar un patrón",
+      "- B\\) Hacer pruebas para descubrir qué cambia el resultado",
+      "- C\\) Crear algo visual, musical o narrativo desde cero",
+      "- D\\) Coordinar personas para lograr una meta"
+    ],
+    "rationale": "Primaria: INT\\_C/INT\\_I/INT\\_A/INT\\_E\\."
+  },
+  {
+    "id": "Q07",
+    "type": "Escenario",
+    "dimension": "Preferencias",
+    "prompt": "Piensa en una semana de actividades\\. ¿Qué combinación te mantendría más interesado/a?",
+    "options": [
+      "- A\\) Muchas tareas distintas y problemas nuevos",
+      "- B\\) Un proyecto largo con tiempo para perfeccionarlo",
+      "- C\\) Actividades donde puedas usar herramientas digitales",
+      "- D\\) Actividades principalmente con personas"
+    ],
+    "rationale": "Primaria: PRE\\_VAR/PRE\\_TEC/PRE\\_PER/PRE\\_EXP\\. No interpretar A como capacidad de adaptación\\."
+  },
+  {
+    "id": "Q08",
+    "type": "Elección forzada",
+    "dimension": "Preferencias",
+    "prompt": "Si tuvieras que aprender algo nuevo, ¿qué forma te atraería más?",
+    "options": [
+      "- A\\) Probarlo haciendo algo desde el primer momento",
+      "- B\\) Entender primero la información y luego practicar",
+      "- C\\) Experimentar sin saber exactamente cuál será el resultado",
+      "- D\\) Seguir un método claro paso a paso"
+    ],
+    "rationale": "Primaria: PRE\\_PRA/PRE\\_EXP/PRE\\_EST; secundaria PRE\\_DAT\\."
+  },
+  {
+    "id": "Q09",
+    "type": "Escenario",
+    "dimension": "Preferencias",
+    "prompt": "En un proyecto puedes elegir el ambiente de trabajo\\. ¿Cuál te resultaría más cómodo?",
+    "options": [
+      "- A\\) Horario y pasos bastante definidos",
+      "- B\\) Problemas distintos cada día",
+      "- C\\) Mucho uso de herramientas digitales",
+      "- D\\) Cambiar de lugar o contexto con frecuencia"
+    ],
+    "rationale": "Separar preferencia por estructura de preferencia por cambio\\."
+  },
+  {
+    "id": "Q10",
+    "type": "Elección forzada",
+    "dimension": "Preferencias",
+    "prompt": "Cuando imaginas una actividad que te gustaría repetir durante varios meses, ¿qué te importa más?",
+    "options": [
+      "- A\\) Que tenga contacto frecuente con personas",
+      "- B\\) Que permita trabajar con datos, cifras o evidencia",
+      "- C\\) Que puedas hacer cosas concretas y ver resultados",
+      "- D\\) Que puedas descubrir posibilidades nuevas"
+    ],
+    "rationale": "Primaria: cuatro preferencias distintas\\."
+  },
+  {
+    "id": "Q11",
+    "type": "Escenario",
+    "dimension": "Intereses/Preferencias",
+    "prompt": "Te ofrecen dos proyectos\\. ¿Cuál te atrae más?",
+    "options": [
+      "- A\\) Mejorar un proceso que ya existe y hacerlo más ordenado",
+      "- B\\) Empezar con una pregunta y descubrir qué hay detrás",
+      "- C\\) Crear una propuesta completamente nueva",
+      "- D\\) Trabajar con personas para cambiar una situación"
+    ],
+    "rationale": "Usar como contraste entre intereses, no como medición directa de aptitudes\\."
+  },
+  {
+    "id": "Q12",
+    "type": "Preferencia",
+    "dimension": "Preferencias",
+    "prompt": "Si pudieras elegir una herramienta principal para un proyecto, ¿cuál te gustaría usar más?",
+    "options": [
+      "- A\\) Una herramienta digital para crear, analizar o automatizar",
+      "- B\\) Materiales y herramientas para construir/probar",
+      "- C\\) Información, documentos y datos para analizar",
+      "- D\\) Un espacio de trabajo con personas para conversar y coordinar"
+    ],
+    "rationale": "Primaria: PRE\\_TEC/PRE\\_PRA/PRE\\_DAT/PRE\\_PER\\."
+  },
+  {
+    "id": "Q13",
+    "type": "Escenario",
+    "dimension": "Personalidad",
+    "prompt": "En un equipo nadie empieza una tarea y el tiempo se está acabando\\. ¿Qué harías probablemente?",
+    "options": [
+      "- A\\) Empezaría una parte y propondría cómo avanzar",
+      "- B\\) Preguntaría quién puede hacer cada cosa y coordinaría el reparto",
+      "- C\\) Esperaría a que indiquen exactamente qué debo hacer",
+      "- D\\) Intentaría primero entender por qué nadie ha empezado"
+    ],
+    "rationale": "Diferencia iniciativa de liderazgo\\. C no implica baja capacidad; solo menor evidencia de iniciativa\\."
+  },
+  {
+    "id": "Q14",
+    "type": "Dilema",
+    "dimension": "Personalidad",
+    "prompt": "Tu primera solución no funciona después de varios intentos\\. ¿Qué te representa más?",
+    "options": [
+      "- A\\) Cambio de estrategia y vuelvo a probar",
+      "- B\\) Sigo con el mismo método hasta dominarlo",
+      "- C\\) Pido ayuda y pruebo una alternativa con otra persona",
+      "- D\\) Lo dejo por un tiempo y busco otra actividad"
+    ],
+    "rationale": "A y B deben aportar evidencia distinta: adaptación vs perseverancia\\."
+  },
+  {
+    "id": "Q15",
+    "type": "Escenario",
+    "dimension": "Personalidad",
+    "prompt": "Llegas a un grupo donde casi no conoces a nadie y deben trabajar juntos\\. ¿Qué harías normalmente?",
+    "options": [
+      "- A\\) Rompería el hielo y empezaría a conversar",
+      "- B\\) Esperaría un poco para observar cómo es el grupo",
+      "- C\\) Buscaría una tarea concreta y empezaría a trabajar",
+      "- D\\) Intentaría que todos acuerden primero cómo organizarse"
+    ],
+    "rationale": "Primaria PER\\_SOC, secundaria PER\\_INI/PER\\_LID/PER\\_AUT\\. Pilotear para evitar interpretar introversión como déficit\\."
+  },
+  {
+    "id": "Q16",
+    "type": "Escenario",
+    "dimension": "Personalidad",
+    "prompt": "A mitad de un proyecto cambian una regla importante\\. ¿Qué reacción se parece más a ti?",
+    "options": [
+      "- A\\) Ajusto el plan y sigo",
+      "- B\\) Me cuesta al principio, pero pruebo la nueva forma",
+      "- C\\) Prefiero mantener el plan original si todavía funciona",
+      "- D\\) Pregunto por qué cambió antes de decidir qué hacer"
+    ],
+    "rationale": "Primaria PER\\_ADA\\. C también puede aportar a PRE\\_EST, no a capacidad\\."
+  },
+  {
+    "id": "Q17",
+    "type": "Elección",
+    "dimension": "Personalidad",
+    "prompt": "Cuando tienes que hacer un proyecto importante, ¿qué suele pasar?",
+    "options": [
+      "- A\\) Me organizo y avanzo sin que tengan que recordármelo",
+      "- B\\) Me ayuda que alguien me marque los siguientes pasos",
+      "- C\\) Empiezo rápido y voy ajustando sobre la marcha",
+      "- D\\) Prefiero que otra persona coordine y yo me concentro en mi parte"
+    ],
+    "rationale": "Primaria PER\\_AUT/PER\\_INI; secundaria organización y colaboración\\."
+  },
+  {
+    "id": "Q18",
+    "type": "Dilema",
+    "dimension": "Personalidad",
+    "prompt": "En un equipo dos personas tienen opiniones muy distintas\\. ¿Qué harías primero?",
+    "options": [
+      "- A\\) Intentaría entender qué necesita cada una y buscar un punto común",
+      "- B\\) Propondría una decisión para que el equipo pueda avanzar",
+      "- C\\) Dejaría que ellas lo resuelvan",
+      "- D\\) Buscaría datos o información que ayuden a decidir"
+    ],
+    "rationale": "Primaria APT\\_SOC/PER\\_LID/APT\\_ANA\\."
+  },
+  {
+    "id": "Q19",
+    "type": "Escenario",
+    "dimension": "Personalidad",
+    "prompt": "Tienes una tarea difícil y nadie está revisando si la haces\\. ¿Qué te resulta más probable?",
+    "options": [
+      "- A\\) Defino mi propio plan y avanzo",
+      "- B\\) Me cuesta mantener el ritmo si no hay seguimiento",
+      "- C\\) Busco una forma distinta de resolverla",
+      "- D\\) Primero pregunto a alguien qué espera exactamente"
+    ],
+    "rationale": "Evitar que una respuesta se convierta automáticamente en juicio de responsabilidad\\."
+  },
+  {
+    "id": "Q20",
+    "type": "Escenario",
+    "dimension": "Personalidad",
+    "prompt": "Tienes que presentar una idea y el grupo está en desacuerdo contigo\\. ¿Qué harías?",
+    "options": [
+      "- A\\) Explicaría mi punto y defendería la propuesta",
+      "- B\\) Preguntaría qué cambiarían y adaptaría la idea",
+      "- C\\) Dejaría que otra persona la presente",
+      "- D\\) Buscaría un acuerdo y repartiría responsabilidades"
+    ],
+    "rationale": "Diferencia adaptación, colaboración e iniciativa\\."
+  },
+  {
+    "id": "Q21",
+    "type": "Escenario",
+    "dimension": "Personalidad",
+    "prompt": "Durante una actividad con bastante presión de tiempo, ¿qué suele pasar contigo?",
+    "options": [
+      "- A\\) Mantengo la calma y sigo con el plan",
+      "- B\\) Necesito parar un momento para ordenar mis ideas",
+      "- C\\) Me activo y tomo decisiones rápidas",
+      "- D\\) Prefiero dividir el problema en pasos antes de continuar"
+    ],
+    "rationale": "PER\\_EST = funcionamiento ante presión, no preferencia por estabilidad\\."
+  },
+  {
+    "id": "Q22",
+    "type": "Elección",
+    "dimension": "Personalidad",
+    "prompt": "Si el equipo logra una meta difícil, ¿qué papel te sale más natural asumir?",
+    "options": [
+      "- A\\) Coordinar para que todos sepan qué hacer",
+      "- B\\) Aportar ideas y empezar una parte del trabajo",
+      "- C\\) Asegurar que todos puedan aportar",
+      "- D\\) Concentrarme en mi tarea y entregar un resultado sólido"
+    ],
+    "rationale": "Primaria PER\\_LID/PER\\_INI/PER\\_COL/PER\\_AUT\\."
+  },
+  {
+    "id": "Q23",
+    "type": "Trade\\-off",
+    "dimension": "Valores",
+    "prompt": "Si tuvieras que elegir entre dos proyectos igualmente interesantes, ¿qué te haría inclinarte por uno?",
+    "options": [
+      "- A\\) Que te permita aprender muchísimo",
+      "- B\\) Que tenga ingresos y resultados concretos",
+      "- C\\) Que genere un impacto positivo en otras personas",
+      "- D\\) Que te dé libertad para decidir cómo trabajar"
+    ],
+    "rationale": "Trade\\-off explícito\\. No hay respuesta correcta\\."
+  },
+  {
+    "id": "Q24",
+    "type": "Trade\\-off",
+    "dimension": "Valores",
+    "prompt": "Un proyecto puede ser muy creativo, pero también puede ser menos predecible\\. Otro es más seguro, pero tiene menos espacio para crear\\. ¿Qué priorizarías?",
+    "options": [
+      "- A\\) Creatividad y nuevas ideas",
+      "- B\\) Seguridad y estabilidad",
+      "- C\\) Un equilibrio entre ambas",
+      "- D\\) Dependería de cuánto pueda aprender"
+    ],
+    "rationale": "C no debe ser tratado como 'mejor'; registrar como preferencia de equilibrio\\."
+  },
+  {
+    "id": "Q25",
+    "type": "Trade\\-off",
+    "dimension": "Valores",
+    "prompt": "Tu equipo debe decidir entre una solución rápida que funciona bastante bien y una solución más completa que tardará más\\. ¿Qué priorizarías?",
+    "options": [
+      "- A\\) Terminar rápido y avanzar",
+      "- B\\) Hacerla más completa aunque tome más tiempo",
+      "- C\\) Elegir según el impacto que tenga en las personas",
+      "- D\\) Buscar una tercera alternativa"
+    ],
+    "rationale": "Pilotear para distinguir reconocimiento/resultados, aprendizaje, impacto y creatividad\\."
+  },
+  {
+    "id": "Q26",
+    "type": "Trade\\-off",
+    "dimension": "Valores",
+    "prompt": "Imagina que puedes elegir entre trabajar siempre con instrucciones claras o tener libertad para decidir cómo lograr tus objetivos\\. ¿Qué te importa más?",
+    "options": [
+      "- A\\) Tener mucha libertad",
+      "- B\\) Tener claridad y estructura",
+      "- C\\) Tener libertad, pero con objetivos claros",
+      "- D\\) Poder aprender nuevas formas de hacerlo"
+    ],
+    "rationale": "Separar valor por autonomía de preferencia PRE\\_EST\\."
+  },
+  {
+    "id": "Q27",
+    "type": "Trade\\-off",
+    "dimension": "Valores",
+    "prompt": "En una decisión importante, ¿qué criterio pesa más para ti?",
+    "options": [
+      "- A\\) Que sea justo para las personas involucradas",
+      "- B\\) Que sea eficiente y dé buenos resultados",
+      "- C\\) Que ayude a aprender algo nuevo",
+      "- D\\) Que mantenga un buen equilibrio con la vida personal"
+    ],
+    "rationale": "Nota: VAL\\_REC se interpreta como reconocimiento/resultado; revisar redacción exacta del diccionario si la etiqueta cambia en futuras versiones\\."
+  },
+  {
+    "id": "Q28",
+    "type": "Escenario de valores",
+    "dimension": "Valores",
+    "prompt": "Si una actividad te da mucho reconocimiento, pero no te permite aprender ni crear, ¿qué tan atractiva te resultaría?",
+    "options": [
+      "- A\\) Mucho, el reconocimiento importa bastante",
+      "- B\\) Poco, preferiría aprender",
+      "- C\\) Poco, preferiría crear algo",
+      "- D\\) Dependería de si también genera un impacto útil"
+    ],
+    "rationale": "Primaria VAL\\_REC/VAL\\_APR/VAL\\_CRE/VAL\\_IMP\\."
+  },
+  {
+    "id": "Q29",
+    "type": "Mini\\-reto",
+    "dimension": "Aptitud",
+    "prompt": "Una secuencia sigue este patrón: 3, 6, 12, 24, \\_\\_\\. ¿Qué número continúa?",
+    "options": [
+      "- A\\) 30",
+      "- B\\) 36",
+      "- C\\) 48",
+      "- D\\) 54"
+    ],
+    "rationale": "Correcta: C\\. Evidencia primaria APT\\_LOG, secundaria APT\\_NUM\\."
+  },
+  {
+    "id": "Q30",
+    "type": "Mini\\-reto",
+    "dimension": "Aptitud",
+    "prompt": "Una tienda tiene 4 cajas\\. Cada caja procesa 15 pedidos por hora\\. Si todas trabajan durante 2 horas, ¿cuántos pedidos procesan en total?",
+    "options": [
+      "- A\\) 60",
+      "- B\\) 90",
+      "- C\\) 120",
+      "- D\\) 150"
+    ],
+    "rationale": "Correcta: C\\. Medición objetiva de relaciones cuantitativas\\."
+  },
+  {
+    "id": "Q31",
+    "type": "Mini\\-reto verbal",
+    "dimension": "Aptitud",
+    "prompt": "Lee: 'Una solución puede ser rápida, pero si no resuelve la causa del problema, el problema puede reaparecer\\.' ¿Cuál conclusión está mejor respaldada?",
+    "options": [
+      "- A\\) Las soluciones rápidas nunca sirven",
+      "- B\\) Resolver la causa puede evitar que el problema vuelva",
+      "- C\\) Todo problema tiene una sola causa",
+      "- D\\) Una solución lenta siempre es mejor"
+    ],
+    "rationale": "Correcta: B\\. Mide comprensión e inferencia; no conocimiento escolar\\."
+  },
+  {
+    "id": "Q32",
+    "type": "Mini\\-caso",
+    "dimension": "Aptitud",
+    "prompt": "Tres estudiantes llegan tarde\\. Ana dice que perdió el bus\\. Luis dice que se quedó dormido\\. Marta dice que el bus pasó antes de la hora habitual\\. ¿Qué información ayudaría más a saber si hubo un cambio en el servicio?",
+    "options": [
+      "- A\\) La opinión de otros estudiantes",
+      "- B\\) El horario habitual y el horario real del bus",
+      "- C\\) Si los estudiantes estaban cansados",
+      "- D\\) Qué estudiante llegó más tarde"
+    ],
+    "rationale": "Correcta: B\\. Identificación de variable/información relevante\\."
+  },
+  {
+    "id": "Q33",
+    "type": "Mini\\-reto espacial",
+    "dimension": "Aptitud",
+    "prompt": "Un cubo tiene una flecha dibujada en una de sus caras\\. Si giras el cubo 90° hacia la derecha, ¿qué ocurre con la flecha respecto a la cara que ocupa?",
+    "options": [
+      "- A\\) Mantiene exactamente la misma orientación respecto a la pantalla",
+      "- B\\) Cambia su orientación por el giro",
+      "- C\\) Desaparece",
+      "- D\\) Se duplica"
+    ],
+    "rationale": "Correcta: B\\. El prototipo final debería mostrar una figura visual real, no solo texto\\."
+  },
+  {
+    "id": "Q34",
+    "type": "Mini\\-reto creativo",
+    "dimension": "Aptitud",
+    "prompt": "Tienes una botella vacía, una cuerda y una hoja de papel\\. ¿Cuál propuesta muestra más posibilidades de uso diferentes?",
+    "options": [
+      "- A\\) Usar la botella solo como recipiente",
+      "- B\\) Usar la botella como recipiente y la hoja para una etiqueta",
+      "- C\\) Pensar varios usos posibles y elegir uno que resuelva un problema concreto",
+      "- D\\) No usar la botella porque no fue diseñada para eso"
+    ],
+    "rationale": "La versión productiva debe evaluar número/variedad/adecuación de ideas, no solo elegir una opción\\."
+  },
+  {
+    "id": "Q35",
+    "type": "Mini\\-caso",
+    "dimension": "Aptitud",
+    "prompt": "Un equipo debe organizar una actividad con 30 personas, tres tareas y dos horas\\. ¿Qué paso sería más útil primero?",
+    "options": [
+      "- A\\) Empezar sin plan para ahorrar tiempo",
+      "- B\\) Dividir tareas, responsables y tiempos",
+      "- C\\) Esperar a que alguien organice todo",
+      "- D\\) Elegir primero el diseño del afiche"
+    ],
+    "rationale": "Correcta: B\\. Evidencia primaria APT\\_ORG\\."
+  },
+  {
+    "id": "Q36",
+    "type": "Mini\\-caso social",
+    "dimension": "Aptitud",
+    "prompt": "Una persona de tu equipo está molesta porque siente que su idea fue ignorada\\. ¿Cuál respuesta ayuda más a comprender la situación antes de decidir?",
+    "options": [
+      "- A\\) Decirle que debe aceptar la decisión",
+      "- B\\) Preguntarle qué parte de su idea considera importante y escuchar su explicación",
+      "- C\\) Cambiar inmediatamente la decisión",
+      "- D\\) Ignorar el tema para evitar conflicto"
+    ],
+    "rationale": "Correcta: B\\. Mide comprensión interpersonal, no sociabilidad\\."
+  },
+  {
+    "id": "Q37",
+    "type": "Consistencia",
+    "dimension": "Elección forzada",
+    "prompt": "Volvamos a una idea parecida a la del inicio\\. Si tuvieras que elegir ahora un proyecto para varias semanas, ¿qué te atraería más?",
+    "options": [
+      "- A\\) Investigar una pregunta hasta entenderla",
+      "- B\\) Construir/probar una solución concreta",
+      "- C\\) Crear una experiencia visual o narrativa",
+      "- D\\) Trabajar directamente con personas para ayudarlas o enseñarles"
+    ],
+    "rationale": "Ítem espejo conceptual de Q01\\. No debe tener la misma redacción ni depender de memoria\\."
+  },
+  {
+    "id": "Q38",
+    "type": "Consistencia",
+    "dimension": "Escenario",
+    "prompt": "Si un proyecto que te gustaba cambia de dirección a mitad de camino, ¿qué opción se parece más a lo que harías?",
+    "options": [
+      "- A\\) Me adapto y pruebo el nuevo camino",
+      "- B\\) Intento mantener el plan original",
+      "- C\\) Busco una alternativa que combine ambas cosas",
+      "- D\\) Prefiero abandonar y empezar otra cosa"
+    ],
+    "rationale": "Contrasta Q16 y aporta evidencia sobre adaptación vs preferencia\\."
+  },
+  {
+    "id": "Q39",
+    "type": "Consistencia",
+    "dimension": "Trade\\-off",
+    "prompt": "Si pudieras elegir entre un proyecto muy estructurado y otro con mucha libertad pero más incertidumbre, ¿cuál escogerías?",
+    "options": [
+      "- A\\) El estructurado",
+      "- B\\) El de mayor libertad",
+      "- C\\) Dependería del propósito del proyecto",
+      "- D\\) El que permita experimentar más"
+    ],
+    "rationale": "Contrasta preferencias y valores; no convertir la opción C en neutral automáticamente\\."
+  },
+  {
+    "id": "Q40",
+    "type": "Integración",
+    "dimension": "Escenario",
+    "prompt": "Al terminar una actividad, ¿qué señal te haría pensar 'esto sí fue una buena experiencia para mí'?",
+    "options": [
+      "- A\\) Entendí algo que antes no entendía",
+      "- B\\) Creé o mejoré algo que puedo mostrar",
+      "- C\\) Ayudé a que otra persona avanzara",
+      "- D\\) Resolví un problema difícil o encontré cómo hacerlo funcionar",
+      "- No está definido el algoritmo definitivo que transforma respuestas en scores 0–100 para las 38 variables\\.",
+      "- No se ha definido si todas las preguntas tendrán el mismo peso o si algunas tendrán mayor poder discriminativo\\.",
+      "- No se ha calibrado la dificultad de los mini\\-retos por edad/grado escolar\\.",
+      "- No se ha probado la duración real con estudiantes de 13–19 años\\.",
+      "- No se ha validado todavía si las alternativas producen perfiles suficientemente diferenciados\\.",
+      "- No se debe conectar todavía el resultado de cada respuesta directamente a una carrera: primero debe construirse el perfil de 38 variables y luego ejecutar MATCHING\\_V1\\.",
+      "- Las Discovery Signals del onboarding siguen siendo complementarias y no sustituyen este banco\\."
+    ],
+    "rationale": "Ítem integrador\\. No usarlo como único predictor de ninguna variable\\."
+  }
+]

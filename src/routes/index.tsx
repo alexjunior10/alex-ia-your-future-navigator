@@ -60,8 +60,31 @@ function Index() {
             <p className="mt-5 text-xs text-muted-foreground">+ de 12,000 estudiantes peruanos ya descubrieron su camino.</p>
           </div>
           <div className="relative animate-fade-in hidden md:block">
-            <div className="absolute -inset-4 -z-10 rounded-[2.5rem] bg-gradient-to-br from-primary/20 to-accent/30 blur-2xl" />
-            <img src={heroImg} alt="Estudiante explorando carreras con Alex IA" width={1280} height={960} className="rounded-3xl shadow-2xl shadow-primary/10 object-cover aspect-[4/3]" />
+            <div className="absolute -inset-4 -z-10 rounded-[2.5rem] bg-gradient-to-br from-primary/30 via-indigo-500/20 to-secondary/30 blur-2xl opacity-75" />
+            <div className="relative overflow-hidden rounded-3xl border border-white/30 dark:border-white/10 shadow-2xl shadow-primary/20 backdrop-blur-sm">
+              <img
+                src={heroImg}
+                alt="Estudiante explorando carreras con Alex IA"
+                width={1280}
+                height={960}
+                className="w-full object-cover aspect-[4/3] transition-transform duration-500 hover:scale-102"
+              />
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3 rounded-2xl border border-white/20 bg-background/85 p-3 shadow-xl backdrop-blur-md">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/15 text-primary">
+                    <Sparkles className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-foreground">Test Vocacional ADN V1.1</p>
+                    <p className="text-[11px] text-muted-foreground">38 dimensiones psicométricas y 132 carreras</p>
+                  </div>
+                </div>
+                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Activo
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
