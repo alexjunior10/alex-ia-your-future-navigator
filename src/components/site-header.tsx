@@ -19,7 +19,8 @@ export function SiteHeader() {
   const navigate = useNavigate();
 
   const handleLinkClick = (e: React.MouseEvent, item: typeof allItems[0]) => {
-    if (item.isProtected && !role) {
+    const isPilotMode = import.meta.env.VITE_PILOT_MODE === 'true';
+    if (item.isProtected && !role && !isPilotMode) {
       e.preventDefault();
       setShowAuthModal(true);
     }

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import heroImg from "../assets/hero-students.png";
 import { careers } from "../lib/mock-data";
@@ -159,11 +159,17 @@ function HomeRadarPreview() {
 
 function Index() {
   const { role, setShowAuthModal } = useAuth();
+  const navigate = useNavigate();
 
   const handleTestClick = (e: React.MouseEvent) => {
+    const isPilotMode = import.meta.env.VITE_PILOT_MODE === 'true';
     if (!role) {
       e.preventDefault();
-      setShowAuthModal(true);
+      if (isPilotMode) {
+        navigate({ to: "/registro/estudiante" });
+      } else {
+        setShowAuthModal(true);
+      }
     }
   };
 

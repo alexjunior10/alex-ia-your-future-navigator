@@ -12,6 +12,7 @@ export const Route = createFileRoute("/registro/estudiante")({
 function RegistroEstudiante() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const isPilotMode = import.meta.env.VITE_PILOT_MODE === 'true';
   const [step, setStep] = useState(1);
   const [transitioning, setTransitioning] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -158,10 +159,12 @@ function RegistroEstudiante() {
               <input required value={name} onChange={e => setName(e.target.value)} placeholder="Tu nombre o apodo" className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2" />
             </div>
 
-            <div>
-              <label className="mb-2 block text-sm font-medium">Correo electrónico</label>
-              <input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="tucorreo@ejemplo.com" className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2" />
-            </div>
+            {!isPilotMode && (
+              <div>
+                <label className="mb-2 block text-sm font-medium">Correo electrónico</label>
+                <input type="email" required={!isPilotMode} value={email} onChange={e => setEmail(e.target.value)} placeholder="tucorreo@ejemplo.com" className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2" />
+              </div>
+            )}
 
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -209,7 +212,27 @@ function RegistroEstudiante() {
               ].map(opt => (
                 <button
                   key={opt.text}
-                  onClick={() => { setIcebreaker(opt.text); handleNext(); }}
+                  onClick={() => { 
+                    setIcebreaker(opt.text); 
+                    if (isPilotMode) {
+                      const pilotSession = {
+                        id: crypto.randomUUID ? crypto.randomUUID() : 'pilot_' + Math.random().toString(36).substr(2, 9),
+                        email: 'pilot@alexia.local',
+                        user_metadata: {
+                          role: 'student',
+                          name,
+                          avatar,
+                          school,
+                          grade,
+                          icebreaker: opt.text
+                        }
+                      };
+                      window.localStorage.setItem('pilot_session', JSON.stringify(pilotSession));
+                      window.location.href = '/bienvenida';
+                    } else {
+                      handleNext(); 
+                    }
+                  }}
                   className="flex items-center gap-4 rounded-2xl border border-border bg-background p-4 text-left font-medium text-foreground transition-all hover:-translate-y-1 hover:border-secondary hover:shadow-md"
                 >
                   <span className="text-2xl">{opt.emoji}</span>

@@ -280,6 +280,7 @@ export async function fetchAllStudentEvaluations(supabase: SupabaseClient): Prom
 
     const name = rData.student_name || studentProfile?.name || 'Estudiante';
     const school = rData.school || studentProfile?.school || 'Colegio Registrado';
+    const grade = rData.grade_level || rData.grade || studentProfile?.grade || '5to';
     let rawMatches = rData.top_matches || rData.matches;
     if (!rawMatches || !Array.isArray(rawMatches) || rawMatches.length === 0) {
       rawMatches = CALIBRATED_STUDENT_DEFAULTS[sId]?.topMatches;
