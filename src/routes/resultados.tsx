@@ -28,6 +28,8 @@ import {
   Heart,
   Scale,
   Zap,
+  FileDown,
+  Printer,
 } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import { careers as mockCareers, mockAdnProfile } from "../lib/mock-data";
@@ -39,6 +41,8 @@ import {
 } from "../lib/questionnaire";
 import { supabase } from "../integrations/supabase/client";
 import { useAuth } from "../hooks/use-auth";
+import { generateExecutivePDF, openPrintableReport } from "../lib/export/report-pdf";
+import { formatDetailedResponses, type StudentEvaluation } from "../lib/admin/evaluations";
 
 export const Route = createFileRoute("/resultados")({
   head: () => ({ meta: [{ title: "Resultados Vocacionales Oficiales — Alex IA" }] }),
@@ -494,6 +498,44 @@ function ResultsPage() {
         { name: "Preferencias", value: 81, desc: "Ambiente de trabajo" },
       ];
 
+  // Evaluación unificada para exportación PDF y reporte oficial
+  const currentEvaluation: StudentEvaluation = useMemo(() => {
+    const p38d = scoringResult?.profile_38d || {};
+    const topMatchesList = allMatches.map((m) => ({
+      career_slug: m.slug,
+      career_name: m.name,
+      overall_similarity: m.affinity,
+      area: m.area,
+      salary: mockCareers.find((c) => c.slug === m.slug)?.salary || "S/ 3,500 — S/ 12,000",
+      employability: mockCareers.find((c) => c.slug === m.slug)?.employability || "Alta",
+      duration: mockCareers.find((c) => c.slug === m.slug)?.duration || "5 años",
+    }));
+
+    return {
+      id: scoringResult?.attempt?.attempt_id || "res_curr",
+      studentId: user?.id || "student_curr",
+      studentName: user?.user_metadata?.name || (user?.email ? user.email.split("@")[0] : "Estudiante"),
+      avatar: user?.user_metadata?.avatar || "🎓",
+      school: user?.user_metadata?.school || "Colegio Piloto",
+      grade: user?.user_metadata?.grade || (scoringResult?.attempt?.grade_level === "3S" ? "3ro" : scoringResult?.attempt?.grade_level === "4S" ? "4to" : "5to"),
+      status: "completed",
+      completedAt: scoringResult?.attempt?.created_at || new Date().toISOString(),
+      topCareer: top1 ? { name: top1.name, affinity: top1.affinity, area: top1.area } : null,
+      topMatches: topMatchesList,
+      macroDimensions: {
+        intereses: dimensionRadarData[0]?.value || 82,
+        aptitudes: dimensionRadarData[1]?.value || 86,
+        personalidad: dimensionRadarData[2]?.value || 79,
+        preferencias: dimensionRadarData[4]?.value || 80,
+        valores: dimensionRadarData[3]?.value || 75,
+      },
+      profile_38d: p38d,
+      responses: formatDetailedResponses(scoringResult?.attempt?.responses || []),
+      averageResponseTimeSec: 4.2,
+      source: "supabase_live",
+    };
+  }, [scoringResult, allMatches, user, top1, dimensionRadarData]);
+
   // Síntesis Cualitativa del Perfil (Sin redundancia numérica, Regla 10)
   const profileSynthesis = useMemo(() => {
     if (!hasRealMatches || !scoringResult?.profile_38d) {
@@ -711,6 +753,27 @@ function ResultsPage() {
             <strong>Nota de orientación:</strong> Este resultado es exploratorio. Alex IA no decide tu futuro ni predice
             éxito laboral; te ofrece un mapa honesto para reflexionar e investigar con criterio propio.
           </span>
+        </div>
+
+        {/* Barra de Descarga de Informe Oficial en PDF */}
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+          <button
+            onClick={() => generateExecutivePDF(currentEvaluation)}
+            className="inline-flex items-center gap-2 rounded-2xl bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/25 hover:scale-105 hover:bg-primary/90 transition-all cursor-pointer"
+            title="Descarga el archivo PDF oficial con tus resultados, perfil 38D y respuestas"
+          >
+            <FileDown className="h-5 w-5" />
+            Descargar Todo el Informe en PDF
+          </button>
+
+          <button
+            onClick={() => openPrintableReport(currentEvaluation)}
+            className="inline-flex items-center gap-2 rounded-2xl border border-border bg-card px-5 py-3.5 text-sm font-bold text-foreground shadow-sm hover:bg-muted transition-all cursor-pointer"
+            title="Abrir formato A4 listo para imprimir o guardar como PDF"
+          >
+            <Printer className="h-5 w-5 text-primary" />
+            Guardar / Imprimir Formato A4
+          </button>
         </div>
       </div>
 

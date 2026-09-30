@@ -67,7 +67,8 @@ export function SiteFooter() {
               <li><Link to="/" className="hover:text-primary transition-colors">Nosotros</Link></li>
               {isVisible(["parent"]) && <li><Link to="/padres" onClick={(e) => handleLinkClick(e, true)} className="hover:text-primary transition-colors">Para Padres</Link></li>}
               {isVisible(["school"]) && <li><Link to="/colegios" onClick={(e) => handleLinkClick(e, true)} className="hover:text-primary transition-colors">Para Colegios</Link></li>}
-              <li><Link to="/" className="hover:text-primary transition-colors">Privacidad</Link></li>
+              <li><Link to="/admin" className="hover:text-primary transition-colors font-semibold text-primary">Panel Administrador</Link></li>
+              <li><Link to="/privacidad" className="hover:text-primary transition-colors">Privacidad</Link></li>
             </ul>
           </div>
         </div>

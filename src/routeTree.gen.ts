@@ -20,6 +20,7 @@ import { Route as ColegiosRouteImport } from './routes/colegios'
 import { Route as CoachRouteImport } from './routes/coach'
 import { Route as CarrerasRouteImport } from './routes/carreras'
 import { Route as BienvenidaRouteImport } from './routes/bienvenida'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ActualizarClaveRouteImport } from './routes/actualizar-clave'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RegistroPadreRouteImport } from './routes/registro.padre'
@@ -81,6 +82,11 @@ const BienvenidaRoute = BienvenidaRouteImport.update({
   path: '/bienvenida',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ActualizarClaveRoute = ActualizarClaveRouteImport.update({
   id: '/actualizar-clave',
   path: '/actualizar-clave',
@@ -110,6 +116,7 @@ const CarrerasSlugRoute = CarrerasSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/actualizar-clave': typeof ActualizarClaveRoute
+  '/admin': typeof AdminRoute
   '/bienvenida': typeof BienvenidaRoute
   '/carreras': typeof CarrerasRouteWithChildren
   '/coach': typeof CoachRoute
@@ -128,6 +135,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/actualizar-clave': typeof ActualizarClaveRoute
+  '/admin': typeof AdminRoute
   '/bienvenida': typeof BienvenidaRoute
   '/carreras': typeof CarrerasRouteWithChildren
   '/coach': typeof CoachRoute
@@ -147,6 +155,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/actualizar-clave': typeof ActualizarClaveRoute
+  '/admin': typeof AdminRoute
   '/bienvenida': typeof BienvenidaRoute
   '/carreras': typeof CarrerasRouteWithChildren
   '/coach': typeof CoachRoute
@@ -167,6 +176,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/actualizar-clave'
+    | '/admin'
     | '/bienvenida'
     | '/carreras'
     | '/coach'
@@ -185,6 +195,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/actualizar-clave'
+    | '/admin'
     | '/bienvenida'
     | '/carreras'
     | '/coach'
@@ -203,6 +214,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/actualizar-clave'
+    | '/admin'
     | '/bienvenida'
     | '/carreras'
     | '/coach'
@@ -222,6 +234,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActualizarClaveRoute: typeof ActualizarClaveRoute
+  AdminRoute: typeof AdminRoute
   BienvenidaRoute: typeof BienvenidaRoute
   CarrerasRoute: typeof CarrerasRouteWithChildren
   CoachRoute: typeof CoachRoute
@@ -316,6 +329,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BienvenidaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/actualizar-clave': {
       id: '/actualizar-clave'
       path: '/actualizar-clave'
@@ -369,6 +389,7 @@ const CarrerasRouteWithChildren = CarrerasRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActualizarClaveRoute: ActualizarClaveRoute,
+  AdminRoute: AdminRoute,
   BienvenidaRoute: BienvenidaRoute,
   CarrerasRoute: CarrerasRouteWithChildren,
   CoachRoute: CoachRoute,

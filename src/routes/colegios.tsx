@@ -12,12 +12,6 @@ function ColegiosPage() {
   const { role, logout } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (role && role !== "school") {
-      navigate({ to: "/bienvenida", replace: true });
-    }
-  }, [role, navigate]);
-
   const grades = [
     { grade: "3ro Secundaria", students: 124, progress: 78 },
     { grade: "4to Secundaria", students: 118, progress: 62 },
@@ -25,6 +19,21 @@ function ColegiosPage() {
   ];
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      {/* Banner de acceso directo a Informes en Vivo */}
+      <div className="mb-6 rounded-2xl border border-[#4F6BFF]/30 bg-[#4F6BFF]/10 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <span className="text-xs font-bold uppercase tracking-wider text-[#4F6BFF]">Panel Activo</span>
+          <h3 className="text-base font-bold text-[#172554]">¿Deseas ver las evaluaciones e informes en tiempo real?</h3>
+          <p className="text-xs text-[#64748B]">Accede a los resultados detallados, radar vocacional y auditoría de 40 preguntas de cada estudiante.</p>
+        </div>
+        <button
+          onClick={() => navigate({ to: "/admin" })}
+          className="shrink-0 px-5 py-2.5 rounded-xl bg-[#4F6BFF] text-white text-xs font-bold hover:bg-[#3D57E8] transition-colors shadow-sm cursor-pointer"
+        >
+          Ver Informes en Vivo →
+        </button>
+      </div>
+
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start mb-6">
         <div className="rounded-3xl bg-gradient-to-br from-primary to-secondary p-10 text-primary-foreground shadow-xl flex-1 w-full">
           <h1 className="text-3xl font-extrabold sm:text-4xl">Orientación vocacional escalable</h1>
@@ -32,9 +41,11 @@ function ColegiosPage() {
             Acompaña a cada estudiante con datos, reportes y herramientas modernas. Ideal para colegios que quieren elevar su propuesta de tutoría.
           </p>
         </div>
-        <button onClick={logout} className="shrink-0 flex items-center gap-2 rounded-xl border-2 border-border bg-background px-5 py-3 font-semibold text-foreground hover:border-destructive hover:text-destructive transition-colors">
-          <LogOut className="h-5 w-5" /> Cerrar Sesión
-        </button>
+        {role && (
+          <button onClick={logout} className="shrink-0 flex items-center gap-2 rounded-xl border-2 border-border bg-background px-5 py-3 font-semibold text-foreground hover:border-destructive hover:text-destructive transition-colors">
+            <LogOut className="h-5 w-5" /> Cerrar Sesión
+          </button>
+        )}
       </div>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-3">

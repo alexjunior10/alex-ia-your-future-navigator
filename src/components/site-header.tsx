@@ -11,6 +11,7 @@ const allItems = [
   { to: "/examen", label: "Simulador", isProtected: true, roles: ["student"] as Role[] },
   { to: "/padres", label: "Para Padres", isProtected: true, roles: ["parent"] as Role[] },
   { to: "/colegios", label: "Para Colegios", isProtected: true, roles: ["school"] as Role[] },
+  { to: "/admin", label: "Panel Admin", isProtected: false, roles: ["student", "parent", "school"] as Role[] },
 ];
 
 export function SiteHeader() {

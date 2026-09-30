@@ -3,6 +3,14 @@ import type { QuestionnaireAttempt, QuestionnaireScoringResult } from './types.t
 
 const LOCAL_STORAGE_KEY = 'alex_ia_questionnaire_v1_1_latest';
 
+export interface StudentTestMetadata {
+  name?: string;
+  school?: string;
+  grade?: string;
+}
+
+const ALL_ATTEMPTS_STORAGE_KEY = 'alex_ia_all_attempts';
+
 /**
  * Servicio de almacenamiento y persistencia para Questionnaire V1.1
  */
@@ -13,14 +21,37 @@ export class QuestionnaireStorage {
   public static async saveAttempt(
     supabase: SupabaseClient,
     scoringResult: QuestionnaireScoringResult,
-    userId?: string
+    userId?: string,
+    metadata?: StudentTestMetadata
   ): Promise<void> {
     const attempt = scoringResult.attempt;
 
-    // 1. Guardar siempre localmente como respaldo inmediato
+    // 1. Guardar localmente como respaldo inmediato (último y lista histórica)
     try {
       if (typeof window !== 'undefined' && window.localStorage) {
         window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(scoringResult));
+
+        // Acumular en lista histórica para panel de administrador
+        const rawHistory = window.localStorage.getItem(ALL_ATTEMPTS_STORAGE_KEY);
+        const history: any[] = rawHistory ? JSON.parse(rawHistory) : [];
+        const entry = {
+          ...scoringResult,
+          studentMetadata: metadata || {
+            name: 'Estudiante',
+            school: 'Colegio Piloto',
+            grade: attempt.grade_level,
+          },
+          savedAt: new Date().toISOString(),
+        };
+
+        const filtered = history.filter(
+          (h) => h.attempt?.attempt_id !== attempt.attempt_id
+        );
+        filtered.unshift(entry);
+        window.localStorage.setItem(
+          ALL_ATTEMPTS_STORAGE_KEY,
+          JSON.stringify(filtered.slice(0, 100))
+        );
       }
     } catch (e) {
       console.warn('No se pudo guardar intento en localStorage:', e);
@@ -28,23 +59,33 @@ export class QuestionnaireStorage {
 
     // 2. Persistir en Supabase
     try {
-      // 2.1 Intentar insertar en tabla nueva questionnaire_attempts
+      const isUUID = (str?: string) =>
+        Boolean(str && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(str));
+
+      const attemptPayload: Record<string, any> = {
+        auth_user_id: userId || null,
+        student_id: attempt.student_id,
+        student_name: metadata?.name || null,
+        school: metadata?.school || null,
+        grade_level: attempt.grade_level,
+        questionnaire_version: attempt.questionnaire_version,
+        questionnaire_attempt: attempt.questionnaire_attempt,
+        profile_38d: attempt.profile_38d,
+        matches: scoringResult.matches || [],
+        matching_version: attempt.matching_version,
+        score_model_version: attempt.score_model_version,
+        status: 'completed',
+        created_at: attempt.created_at,
+        completed_at: attempt.completed_at
+      };
+
+      if (isUUID(attempt.attempt_id)) {
+        attemptPayload.id = attempt.attempt_id;
+      }
+
       const { data: attemptRow, error: attemptErr } = await supabase
         .from('questionnaire_attempts')
-        .insert({
-          id: attempt.attempt_id,
-          auth_user_id: userId || null,
-          student_id: attempt.student_id,
-          grade_level: attempt.grade_level,
-          questionnaire_version: attempt.questionnaire_version,
-          questionnaire_attempt: attempt.questionnaire_attempt,
-          profile_38d: attempt.profile_38d,
-          matching_version: attempt.matching_version,
-          score_model_version: attempt.score_model_version,
-          status: 'completed',
-          created_at: attempt.created_at,
-          completed_at: attempt.completed_at
-        })
+        .insert(attemptPayload)
         .select('id')
         .maybeSingle();
 
@@ -66,17 +107,21 @@ export class QuestionnaireStorage {
         }
       }
 
-      // 2.2 Guardar también en tabla existente test_results para compatibilidad histórica
+      // 2.2 Guardar también en tabla test_results con toda la telemetría para compatibilidad
       if (userId) {
         await supabase.from('test_results').insert({
           auth_user_id: userId,
           result_data: {
             version: 'V1.1',
             attempt_id: attempt.attempt_id,
+            student_name: metadata?.name,
+            school: metadata?.school,
             grade_level: attempt.grade_level,
             profile_38d: attempt.profile_38d,
-            top_matches: (attempt.matches || []).slice(0, 10),
-            created_at: attempt.created_at
+            top_matches: (scoringResult.matches || attempt.matches || []).slice(0, 10),
+            responses: attempt.responses || [],
+            created_at: attempt.created_at,
+            completed_at: attempt.completed_at
           }
         });
       }

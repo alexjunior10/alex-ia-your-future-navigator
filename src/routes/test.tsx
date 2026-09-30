@@ -205,7 +205,11 @@ function TestPage() {
       );
 
       setProcessingStatus("Consolidando tu ADN vocacional oficial...");
-      await QuestionnaireStorage.saveAttempt(supabase, scoringResult, user?.id);
+      await QuestionnaireStorage.saveAttempt(supabase, scoringResult, user?.id, {
+        name: user?.user_metadata?.name || (user?.email ? user.email.split('@')[0] : 'Estudiante Piloto'),
+        school: user?.user_metadata?.school || 'Colegio Piloto',
+        grade: user?.user_metadata?.grade || (gradeLevel === '3S' ? '3ro' : gradeLevel === '4S' ? '4to' : '5to'),
+      });
 
       setProcessingStatus("¡Listo! Mostrando tu reporte de resultados...");
       await new Promise((r) => setTimeout(r, 350));
