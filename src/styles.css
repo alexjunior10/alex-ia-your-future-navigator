@@ -142,3 +142,8 @@
     color: var(--color-foreground);
   }
 }
+
+.font-editorial {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+}
